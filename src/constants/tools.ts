@@ -12,6 +12,16 @@ export const TOOLS: ToolInfo[] = [
     popular: true,
   },
   {
+    id: 'batch',
+    title: 'Batch Processor & ZIP',
+    shortDescription: 'Compress, convert, or resize multiple images at once and export as a ZIP archive.',
+    longDescription: 'High-volume batch processor for photos and documents with simultaneous target KB compression, format conversion, and client-side ZIP packaging.',
+    iconName: 'Layers',
+    path: '/batch',
+    badge: 'Multi-File',
+    popular: true,
+  },
+  {
     id: 'resize',
     title: 'Image Resizer',
     shortDescription: 'Resize by exact pixels (WxH), aspect ratios, percentages or official presets.',

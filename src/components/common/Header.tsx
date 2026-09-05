@@ -10,6 +10,7 @@ export const Header: React.FC = () => {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Application Wizard', path: '/pipeline' },
+    { name: 'Batch', path: '/batch' },
     { name: 'Compress', path: '/compress' },
     { name: 'Resize', path: '/resize' },
     { name: 'Convert', path: '/convert' },

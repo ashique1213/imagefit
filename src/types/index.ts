@@ -1,4 +1,4 @@
-export type ToolCategory = 'compress' | 'resize' | 'convert' | 'signature' | 'background' | 'crop' | 'editor';
+export type ToolCategory = 'compress' | 'batch' | 'resize' | 'convert' | 'signature' | 'background' | 'crop' | 'editor';
 
 export interface ToolInfo {
   id: ToolCategory;

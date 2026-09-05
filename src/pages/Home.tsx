@@ -94,6 +94,12 @@ export const Home: React.FC = () => {
               <span>Resize Image</span>
             </Link>
             <Link
+              to="/batch"
+              className="px-5 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-slate-200 font-semibold text-sm transition-all duration-200 flex items-center gap-2 hover:-translate-y-0.5"
+            >
+              <span>Batch & ZIP</span>
+            </Link>
+            <Link
               to="/signature"
               className="px-5 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-slate-200 font-semibold text-sm transition-all duration-200 flex items-center gap-2 hover:-translate-y-0.5"
             >
