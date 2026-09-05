@@ -11,6 +11,7 @@ export const Header: React.FC = () => {
     { name: 'Home', path: '/' },
     { name: 'Application Wizard', path: '/pipeline' },
     { name: 'Batch', path: '/batch' },
+    { name: 'EXIF Privacy', path: '/metadata' },
     { name: 'Compress', path: '/compress' },
     { name: 'Resize', path: '/resize' },
     { name: 'Convert', path: '/convert' },

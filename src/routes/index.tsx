@@ -10,6 +10,7 @@ import { CropToolPage } from '../pages/CropTool';
 import { ImageEditorPage } from '../pages/ImageEditor';
 import { ApplicationPipelinePage } from '../pages/ApplicationPipeline';
 import { BatchProcessorPage } from '../pages/BatchProcessor';
+import { MetadataStripperPage } from '../pages/MetadataStripper';
 
 export const AppRoutes: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ export const AppRoutes: React.FC = () => {
       <Route path="/" element={<Home />} />
       <Route path="/pipeline" element={<ApplicationPipelinePage />} />
       <Route path="/batch" element={<BatchProcessorPage />} />
+      <Route path="/metadata" element={<MetadataStripperPage />} />
       <Route path="/compress" element={<ImageCompressorPage />} />
       <Route path="/resize" element={<ImageResizerPage />} />
       <Route path="/convert" element={<ImageConverterPage />} />

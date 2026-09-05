@@ -22,6 +22,16 @@ export const TOOLS: ToolInfo[] = [
     popular: true,
   },
   {
+    id: 'metadata',
+    title: 'EXIF & Privacy Stripper',
+    shortDescription: 'Inspect hidden GPS coordinates and camera specs, and wipe all metadata.',
+    longDescription: 'Detect GPS location, device serial numbers, and capture timestamps in your photos and wipe 100% of EXIF chunks for portal privacy.',
+    iconName: 'ShieldAlert',
+    path: '/metadata',
+    badge: 'Privacy',
+    popular: true,
+  },
+  {
     id: 'resize',
     title: 'Image Resizer',
     shortDescription: 'Resize by exact pixels (WxH), aspect ratios, percentages or official presets.',
