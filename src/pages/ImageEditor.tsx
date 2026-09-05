@@ -1,34 +1,249 @@
-import React from 'react';
-import { Sliders, ShieldCheck } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Sliders, ShieldCheck, HelpCircle, FlipHorizontal, RotateCw, Sun } from 'lucide-react';
 import { Badge } from '../components/common/Badge';
+import { ErrorBanner } from '../components/common/ErrorBanner';
+import { Dropzone } from '../components/upload/Dropzone';
+import { ImageDetailsCard } from '../components/upload/ImageDetailsCard';
+import { EditorControls } from '../components/editor/EditorControls';
+import { EditorPreview } from '../components/editor/EditorPreview';
+import { useImageUpload } from '../hooks/useImageUpload';
+import {
+  exportEditedImage,
+  DEFAULT_EDITOR_SETTINGS,
+} from '../utils/image/editImage';
+import type {
+  EditorSettings,
+  EditorResult,
+} from '../utils/image/editImage';
+import { revokeObjectUrl } from '../utils/image/loadImage';
 
 export const ImageEditorPage: React.FC = () => {
+  const { image, isLoading, error: uploadError, handleFileSelect, clearImage, clearError } = useImageUpload();
+
+  const [settings, setSettings] = useState<EditorSettings>(DEFAULT_EDITOR_SETTINGS);
+  const [editorResult, setEditorResult] = useState<EditorResult | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [editorError, setEditorError] = useState<string | null>(null);
+
+  const fileInputHiddenRef = useRef<HTMLInputElement>(null);
+  const previousResultUrlRef = useRef<string | null>(null);
+
+  // Safely cleanup preview object URLs on unmount
+  useEffect(() => {
+    return () => {
+      if (previousResultUrlRef.current) {
+        revokeObjectUrl(previousResultUrlRef.current);
+      }
+    };
+  }, []);
+
+  const handleResetAll = () => {
+    if (previousResultUrlRef.current) {
+      revokeObjectUrl(previousResultUrlRef.current);
+      previousResultUrlRef.current = null;
+    }
+    setEditorResult(null);
+    setEditorError(null);
+    setSettings(DEFAULT_EDITOR_SETTINGS);
+    clearImage();
+  };
+
+  const triggerChangeFile = () => {
+    fileInputHiddenRef.current?.click();
+  };
+
+  const onHiddenInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      if (previousResultUrlRef.current) {
+        revokeObjectUrl(previousResultUrlRef.current);
+        previousResultUrlRef.current = null;
+      }
+      setEditorResult(null);
+      setEditorError(null);
+      handleFileSelect(e.target.files[0]);
+    }
+    if (fileInputHiddenRef.current) {
+      fileInputHiddenRef.current.value = '';
+    }
+  };
+
+  const handleApplyTransforms = async () => {
+    if (!image) return;
+
+    setEditorError(null);
+    setIsProcessing(true);
+
+    try {
+      const img = new Image();
+      img.src = image.previewUrl;
+      await new Promise<void>((resolve, reject) => {
+        img.onload = () => resolve();
+        img.onerror = () => reject(new Error('Failed to load image in browser memory for editing.'));
+      });
+
+      const result = await exportEditedImage(img, settings);
+
+      if (previousResultUrlRef.current) {
+        revokeObjectUrl(previousResultUrlRef.current);
+      }
+      previousResultUrlRef.current = result.previewUrl;
+
+      setEditorResult(result);
+    } catch (err) {
+      setEditorError(
+        err instanceof Error ? err.message : 'An unexpected error occurred during image editing.'
+      );
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const activeError = uploadError || editorError;
+
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
+    <div className="max-w-4xl mx-auto px-4 py-8 space-y-8 animate-fade-in">
+      {/* Hidden file input for "Change Image" button */}
+      <input
+        ref={fileInputHiddenRef}
+        type="file"
+        accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"
+        onChange={onHiddenInputChange}
+        className="hidden"
+      />
+
+      {/* Page Header */}
       <div className="text-center space-y-3">
         <Badge variant="blue" size="md">
-          All-in-One Studio Editor
+          Orientation & Color Studio
         </Badge>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-white flex items-center justify-center gap-3">
           <Sliders className="w-8 h-8 text-blue-400" />
-          Full Studio Editor
+          Image Adjuster & Orientation Studio
         </h1>
         <p className="text-sm text-slate-400 max-w-xl mx-auto">
-          Comprehensive suite combining crop, resize, target KB compression, rotation, flip, brightness, contrast, and format conversion in one screen.
+          Rotate photos, fix mirrored selfie cameras, fine-tune brightness and contrast, or convert scans to black & white without quality loss.
         </p>
       </div>
 
-      <div className="glass-panel p-8 rounded-3xl border border-slate-800 text-center space-y-4">
-        <div className="w-16 h-16 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center mx-auto">
-          <Sliders className="w-8 h-8" />
+      {/* Error Alert */}
+      {activeError && (
+        <ErrorBanner
+          message={activeError}
+          onDismiss={() => {
+            clearError();
+            setEditorError(null);
+          }}
+        />
+      )}
+
+      {/* Step 1: Upload Stage if no image loaded */}
+      {!image ? (
+        <div className="space-y-6">
+          <Dropzone
+            onFileSelected={handleFileSelect}
+            isLoading={isLoading}
+          />
+
+          {/* Value Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+            <div className="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-2">
+              <div className="flex items-center gap-2 text-blue-400 font-bold text-sm">
+                <FlipHorizontal className="w-4 h-4" />
+                Mirror / Selfie Fix
+              </div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Flip horizontally with one click to un-invert webcam and front-facing smartphone camera photos for passport standards.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-2">
+              <div className="flex items-center gap-2 text-purple-400 font-bold text-sm">
+                <RotateCw className="w-4 h-4" />
+                Lossless 90° Rotation
+              </div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Correct sideways or upside-down document scans without degrading pixel resolution or creating letterboxing.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-2">
+              <div className="flex items-center gap-2 text-amber-400 font-bold text-sm">
+                <Sun className="w-4 h-4" />
+                Lighting & Contrast
+              </div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Enhance underexposed certificate scans or washed-out photographs with precision contrast curves.
+              </p>
+            </div>
+          </div>
         </div>
-        <h3 className="text-xl font-bold text-white">All-in-One Studio Editor Ready</h3>
-        <p className="text-xs text-slate-400 max-w-md mx-auto">
-          Full studio editor route initialized.
-        </p>
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs">
-          <ShieldCheck className="w-4 h-4" />
-          Client-side processing ready
+      ) : (
+        <div className="space-y-8">
+          {/* Metadata Card */}
+          <ImageDetailsCard
+            metadata={image}
+            onChangeImage={triggerChangeFile}
+            onRemoveImage={handleResetAll}
+          />
+
+          {/* If Result exists, display Preview; otherwise display Controls */}
+          {editorResult ? (
+            <EditorPreview
+              originalName={image.name}
+              originalWidth={image.width}
+              originalHeight={image.height}
+              originalFormattedSize={image.formattedSize}
+              originalFormat={image.formatExtension}
+              originalPreviewUrl={image.previewUrl}
+              result={editorResult}
+              settings={settings}
+              onEditSettings={() => setEditorResult(null)}
+              onResetAll={handleResetAll}
+            />
+          ) : (
+            <EditorControls
+              settings={settings}
+              onChangeSettings={setSettings}
+              onApply={handleApplyTransforms}
+              isProcessing={isProcessing}
+            />
+          )}
+        </div>
+      )}
+
+      {/* Guidelines Section */}
+      <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-4">
+        <div className="flex items-center gap-3 text-slate-200">
+          <HelpCircle className="w-5 h-5 text-blue-400" />
+          <h3 className="font-bold text-base">Application Photo Guidelines & Common Fixes</h3>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-400 leading-relaxed">
+          <div className="space-y-2 p-3.5 rounded-xl bg-slate-900/40 border border-slate-800/60">
+            <span className="font-semibold text-slate-200 block">
+              Why do portals reject front-camera selfie photos?
+            </span>
+            <p>
+              Front smartphone selfie cameras produce mirrored images by default, causing shirt logos, facial features, or moles to be reversed. Official consular rules require an un-mirrored real-world perspective. Click <strong>Mirror (Selfie Fix)</strong> to restore accurate orientation.
+            </p>
+          </div>
+
+          <div className="space-y-2 p-3.5 rounded-xl bg-slate-900/40 border border-slate-800/60">
+            <span className="font-semibold text-slate-200 block">
+              Fixing Faint or Underexposed Document Scans
+            </span>
+            <p>
+              If your scanned mark sheet, degree certificate, or government ID has grayed-out or faint text, increase <strong>Contrast (+20% to +35%)</strong> and toggle <strong>Black & White Document Mode</strong> to make fine lettering sharp and easily legible for document verification officers.
+            </p>
+          </div>
+        </div>
+
+        <div className="pt-2 flex items-center justify-between text-xs text-slate-500 border-t border-slate-800/60">
+          <span>Native HTML5 Canvas matrix transformations</span>
+          <div className="inline-flex items-center gap-1.5 text-emerald-400 font-medium">
+            <ShieldCheck className="w-4 h-4" />
+            100% In-Memory Processing
+          </div>
         </div>
       </div>
     </div>
