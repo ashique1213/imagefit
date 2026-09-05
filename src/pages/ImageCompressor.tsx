@@ -1,14 +1,45 @@
-import React, { useRef } from 'react';
-import { Minimize2, ShieldCheck, Sliders, ArrowRight } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Minimize2 } from 'lucide-react';
 import { Badge } from '../components/common/Badge';
 import { ErrorBanner } from '../components/common/ErrorBanner';
 import { Dropzone } from '../components/upload/Dropzone';
 import { ImageDetailsCard } from '../components/upload/ImageDetailsCard';
+import { CompressionControls } from '../components/compressor/CompressionControls';
+import type { CompressionSettings } from '../components/compressor/CompressionControls';
+import { ComparisonPreview } from '../components/preview/ComparisonPreview';
 import { useImageUpload } from '../hooks/useImageUpload';
+import { compressToTargetSize, compressWithQuality } from '../utils/image/compressImage';
+import type { CompressionResultExtended } from '../utils/image/compressImage';
+import { revokeObjectUrl } from '../utils/image/loadImage';
 
 export const ImageCompressorPage: React.FC = () => {
-  const { image, isLoading, error, handleFileSelect, clearImage, clearError } = useImageUpload();
+  const { image, isLoading, error: uploadError, handleFileSelect, clearImage, clearError } = useImageUpload();
+  const [compressionResult, setCompressionResult] = useState<CompressionResultExtended | null>(null);
+  const [isCompressing, setIsCompressing] = useState(false);
+  const [compressionError, setCompressionError] = useState<string | null>(null);
+  const [currentTargetBytes, setCurrentTargetBytes] = useState<number | undefined>(undefined);
+
   const fileInputHiddenRef = useRef<HTMLInputElement>(null);
+  const previousResultUrlRef = useRef<string | null>(null);
+
+  // Safely cleanup compressed image preview URL when changing image or unmounting
+  useEffect(() => {
+    return () => {
+      if (previousResultUrlRef.current) {
+        revokeObjectUrl(previousResultUrlRef.current);
+      }
+    };
+  }, []);
+
+  const handleResetImage = () => {
+    if (previousResultUrlRef.current) {
+      revokeObjectUrl(previousResultUrlRef.current);
+      previousResultUrlRef.current = null;
+    }
+    setCompressionResult(null);
+    setCompressionError(null);
+    clearImage();
+  };
 
   const triggerChangeFile = () => {
     fileInputHiddenRef.current?.click();
@@ -16,12 +47,72 @@ export const ImageCompressorPage: React.FC = () => {
 
   const onHiddenInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
+      if (previousResultUrlRef.current) {
+        revokeObjectUrl(previousResultUrlRef.current);
+        previousResultUrlRef.current = null;
+      }
+      setCompressionResult(null);
+      setCompressionError(null);
       handleFileSelect(e.target.files[0]);
     }
     if (fileInputHiddenRef.current) {
       fileInputHiddenRef.current.value = '';
     }
   };
+
+  const handleRunCompression = async (settings: CompressionSettings) => {
+    if (!image) return;
+
+    setCompressionError(null);
+    setIsCompressing(true);
+
+    try {
+      // Create HTMLImageElement to load the source
+      const img = new Image();
+      img.src = image.previewUrl;
+      await new Promise<void>((resolve, reject) => {
+        img.onload = () => resolve();
+        img.onerror = () => reject(new Error('Failed to load image in memory for compression.'));
+      });
+
+      let result: CompressionResultExtended;
+
+      if (settings.mode === 'target') {
+        setCurrentTargetBytes(settings.targetSizeBytes);
+        result = await compressToTargetSize(
+          img,
+          settings.targetSizeBytes,
+          image.sizeBytes,
+          {
+            format: settings.format,
+            allowDimensionReduction: settings.allowDimensionReduction,
+          }
+        );
+      } else {
+        setCurrentTargetBytes(undefined);
+        result = await compressWithQuality(
+          img,
+          settings.quality,
+          settings.format
+        );
+      }
+
+      // Revoke old compressed preview URL
+      if (previousResultUrlRef.current) {
+        revokeObjectUrl(previousResultUrlRef.current);
+      }
+      previousResultUrlRef.current = result.previewUrl;
+
+      setCompressionResult(result);
+      setIsCompressing(false);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Compression failed due to a browser canvas error.';
+      setCompressionError(msg);
+      setIsCompressing(false);
+    }
+  };
+
+  const activeError = uploadError || compressionError;
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
@@ -44,92 +135,67 @@ export const ImageCompressorPage: React.FC = () => {
           Image Compressor
         </h1>
         <p className="text-sm text-slate-400 max-w-xl mx-auto">
-          Upload your photo to inspect metadata and compress it to an exact target file size (e.g. 20KB, 50KB, 100KB) for government and application forms.
+          Upload your photo or document and compress it to an exact target file size (e.g. 20KB, 50KB, 100KB) for government, exam, and job portals.
         </p>
       </div>
 
-      {/* Error Banner */}
-      {error && (
-        <ErrorBanner message={error} onDismiss={clearError} />
+      {/* Error Alert */}
+      {activeError && (
+        <ErrorBanner
+          message={activeError}
+          onDismiss={() => {
+            clearError();
+            setCompressionError(null);
+          }}
+        />
       )}
 
-      {/* Main Upload / Metadata Stage */}
+      {/* Upload Stage */}
       {!image ? (
         <Dropzone
           onFileSelected={handleFileSelect}
           isLoading={isLoading}
         />
       ) : (
-        <div className="space-y-6">
-          {/* Uploaded Image Metadata Card */}
+        <div className="space-y-8">
+          {/* Metadata Card */}
           <ImageDetailsCard
             metadata={image}
             onChangeImage={triggerChangeFile}
-            onRemoveImage={clearImage}
+            onRemoveImage={handleResetImage}
           />
 
-          {/* Compression Configuration Preview Stage (Coming in Day 3) */}
-          <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-6">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <Sliders className="w-4 h-4 text-blue-400" />
-                  <h3 className="text-base font-bold text-white">Compression Settings Ready</h3>
-                </div>
-                <p className="text-xs text-slate-400">
-                  Image validated and decoded successfully in browser memory.
-                </p>
-              </div>
-              <Badge variant="green" size="sm">
-                Ready for Day 3
-              </Badge>
-            </div>
+          {/* Compression Configuration Stage */}
+          <CompressionControls
+            originalSizeBytes={image.sizeBytes}
+            onCompress={handleRunCompression}
+            isProcessing={isCompressing}
+          />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Source Size</span>
-                <div className="text-2xl font-bold font-mono text-white">{image.formattedSize}</div>
-                <p className="text-[11px] text-slate-400">Original uncompressed file weight</p>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-blue-500/10 border border-blue-500/20 space-y-2">
-                <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">Target Size Engine</span>
-                <div className="text-2xl font-bold font-mono text-blue-400">Target KB / MB</div>
-                <p className="text-[11px] text-slate-400">Binary-search canvas compression algorithm scheduled for Day 3</p>
-              </div>
-            </div>
-
-            <div className="pt-2 flex items-center justify-between text-xs text-slate-400">
-              <span className="flex items-center gap-1.5 text-emerald-400">
-                <ShieldCheck className="w-4 h-4" />
-                No data transmitted to any external server
-              </span>
-              <button
-                type="button"
-                onClick={triggerChangeFile}
-                className="text-blue-400 hover:text-blue-300 font-medium flex items-center gap-1"
-              >
-                <span>Upload another photo</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          </div>
+          {/* Results Comparison View */}
+          {compressionResult && (
+            <ComparisonPreview
+              original={image}
+              result={compressionResult}
+              targetSizeBytes={currentTargetBytes}
+            />
+          )}
         </div>
       )}
 
-      {/* Guidelines & Safety Advice */}
+      {/* Explanatory Guidelines Footer */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-400 pt-4">
         <div className="p-4 rounded-2xl glass-panel space-y-1">
-          <span className="font-semibold text-slate-200">Supported Formats</span>
-          <p>JPEG, PNG, and WebP images up to 30 MB.</p>
+          <span className="font-semibold text-slate-200">Binary Search Precision</span>
+          <p>Iterates quality factors dynamically to pinpoint within 1-2 KB of your target size.</p>
         </div>
         <div className="p-4 rounded-2xl glass-panel space-y-1">
-          <span className="font-semibold text-slate-200">Magic Byte Check</span>
-          <p>Files are verified by byte signature, not just extension.</p>
+          <span className="font-semibold text-slate-200">Dimension Safeguards</span>
+          <p>Optional smart dimension scaling kicks in if quality reduction alone cannot fit strict limits.</p>
         </div>
         <div className="p-4 rounded-2xl glass-panel space-y-1">
-          <span className="font-semibold text-slate-200">Memory Cleanup</span>
-          <p>Temporary object URLs are immediately revoked upon file change.</p>
+          <span className="font-semibold text-slate-200">100% In-Browser Privacy</span>
+          <p>The entire binary search and canvas export run in your browser. Zero data transmission.</p>
         </div>
       </div>
     </div>
