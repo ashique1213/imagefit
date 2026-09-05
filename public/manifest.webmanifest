@@ -1,0 +1,50 @@
+{
+  "name": "ImageFit - In-Browser Image & Signature Utility",
+  "short_name": "ImageFit",
+  "description": "Privacy-first in-browser image compressor, resizer, format converter, signature enhancer, and EXIF stripper for online job and exam applications.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#090d16",
+  "theme_color": "#090d16",
+  "categories": ["utilities", "productivity", "photo"],
+  "icons": [
+    {
+      "src": "/pwa-icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Application Wizard",
+      "short_name": "Wizard",
+      "description": "End-to-end multi-step portal compliance pipeline",
+      "url": "/pipeline",
+      "icons": [{ "src": "/pwa-icon.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Compress Image",
+      "short_name": "Compress",
+      "description": "Compress image to exact target KB/MB",
+      "url": "/compress",
+      "icons": [{ "src": "/pwa-icon.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Batch Processor",
+      "short_name": "Batch",
+      "description": "Batch process multiple images and export as ZIP",
+      "url": "/batch",
+      "icons": [{ "src": "/pwa-icon.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Signature Tool",
+      "short_name": "Signature",
+      "description": "Enhance and clean scanned signatures",
+      "url": "/signature",
+      "icons": [{ "src": "/pwa-icon.svg", "sizes": "192x192" }]
+    }
+  ]
+}
