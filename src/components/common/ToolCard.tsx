@@ -1,16 +1,39 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import * as Icons from 'lucide-react';
+import {
+  Minimize2,
+  Maximize2,
+  RefreshCw,
+  PenTool,
+  Palette,
+  Crop,
+  Sliders,
+  Layers,
+  ShieldAlert,
+  ArrowRight,
+  Wrench,
+} from 'lucide-react';
 import type { ToolInfo } from '../../types';
 import { Badge } from './Badge';
+
+const TOOL_ICONS_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
+  Minimize2,
+  Maximize2,
+  RefreshCw,
+  PenTool,
+  Palette,
+  Crop,
+  Sliders,
+  Layers,
+  ShieldAlert,
+};
 
 interface ToolCardProps {
   tool: ToolInfo;
 }
 
 export const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
-  // Dynamically resolve Lucide icon
-  const IconComponent = (Icons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[tool.iconName] || Icons.Wrench;
+  const IconComponent = TOOL_ICONS_MAP[tool.iconName] || Wrench;
 
   return (
     <Link
@@ -41,7 +64,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
         {/* Title */}
         <h3 className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors duration-200 mb-2 flex items-center gap-2">
           {tool.title}
-          <Icons.ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all duration-200" />
+          <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all duration-200" />
         </h3>
 
         {/* Description */}
