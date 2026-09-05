@@ -9,11 +9,12 @@ export const Header: React.FC = () => {
 
   const navLinks = [
     { name: 'Home', path: '/' },
+    { name: 'Application Wizard', path: '/pipeline' },
     { name: 'Compress', path: '/compress' },
     { name: 'Resize', path: '/resize' },
     { name: 'Convert', path: '/convert' },
     { name: 'Signature Tool', path: '/signature' },
-    { name: 'All Tools', path: '/editor' },
+    { name: 'Studio', path: '/editor' },
   ];
 
   const isActive = (path: string) => {

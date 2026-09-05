@@ -43,10 +43,10 @@ export const Home: React.FC = () => {
   ];
 
   const presets = [
-    { name: 'Passport Photo', dimensions: '350 × 450 px', size: 'Max 50 KB', desc: 'Standard passport aspect ratio for government portals.' },
-    { name: 'Scanned Signature', dimensions: '300 × 80 px', size: 'Max 20 KB', desc: 'Clean white background & crisp blue/black ink.' },
-    { name: 'Job Application Photo', dimensions: '600 × 600 px', size: 'Max 200 KB', desc: 'Square portrait suitable for professional profiles.' },
-    { name: 'College Admission Form', dimensions: '400 × 500 px', size: 'Max 100 KB', desc: 'Compliant resolution for university upload portals.' },
+    { id: 'ssc-cgl-photo', name: 'SSC / Exam Photo', dimensions: '350 × 450 px', size: 'Max 50 KB', desc: 'Standard passport aspect ratio for government portals.' },
+    { id: 'ssc-cgl-sig', name: 'Exam Signature', dimensions: '140 × 60 px', size: 'Max 20 KB', desc: 'Clean white background & crisp blue/black ink.' },
+    { id: 'us-visa-ds160', name: 'US Visa / DS-160', dimensions: '600 × 600 px', size: 'Max 240 KB', desc: 'Square 2×2 inch portrait suitable for US embassy portals.' },
+    { id: 'indian-passport-seva', name: 'Passport Seva', dimensions: '413 × 531 px', size: 'Max 100 KB', desc: 'High resolution 300-DPI specification for passports.' },
   ];
 
   return (
@@ -74,29 +74,30 @@ export const Home: React.FC = () => {
           {/* Quick Action Pills */}
           <div className="pt-4 flex flex-wrap items-center justify-center gap-3">
             <Link
-              to="/compress"
-              className="px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all duration-200 shadow-lg shadow-blue-600/30 hover:shadow-blue-500/50 flex items-center gap-2 hover:-translate-y-0.5"
+              to="/pipeline"
+              className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold text-sm transition-all duration-200 shadow-xl shadow-blue-600/30 hover:shadow-blue-500/50 flex items-center gap-2.5 hover:-translate-y-0.5"
             >
-              <span>Compress Image</span>
+              <Sparkles className="w-4 h-4" />
+              <span>Application Wizard</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
+              to="/compress"
+              className="px-5 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-slate-200 font-semibold text-sm transition-all duration-200 flex items-center gap-2 hover:-translate-y-0.5"
+            >
+              <span>Compress Image</span>
+            </Link>
+            <Link
               to="/resize"
-              className="px-6 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-slate-200 font-semibold text-sm transition-all duration-200 flex items-center gap-2 hover:-translate-y-0.5"
+              className="px-5 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-slate-200 font-semibold text-sm transition-all duration-200 flex items-center gap-2 hover:-translate-y-0.5"
             >
               <span>Resize Image</span>
             </Link>
             <Link
               to="/signature"
-              className="px-6 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-slate-200 font-semibold text-sm transition-all duration-200 flex items-center gap-2 hover:-translate-y-0.5"
+              className="px-5 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-slate-200 font-semibold text-sm transition-all duration-200 flex items-center gap-2 hover:-translate-y-0.5"
             >
               <span>Signature Tool</span>
-            </Link>
-            <Link
-              to="/convert"
-              className="px-6 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-slate-200 font-semibold text-sm transition-all duration-200 flex items-center gap-2 hover:-translate-y-0.5"
-            >
-              <span>Convert Format</span>
             </Link>
           </div>
 
@@ -153,7 +154,7 @@ export const Home: React.FC = () => {
               </p>
             </div>
             <Link
-              to="/resize"
+              to="/pipeline"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600/20 text-blue-400 hover:bg-blue-600/30 border border-blue-500/30 text-xs font-semibold transition-colors"
             >
               <span>Explore All Presets</span>
@@ -163,14 +164,26 @@ export const Home: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {presets.map((item, idx) => (
-              <div key={idx} className="bg-slate-900/90 border border-slate-800 p-4 rounded-xl space-y-2 hover:border-slate-700 transition-colors">
+              <Link
+                key={idx}
+                to={`/pipeline?preset=${item.id}`}
+                className="bg-slate-900/90 border border-slate-800 p-4 rounded-xl space-y-2 hover:border-blue-500/50 hover:bg-slate-850 transition-all block group"
+              >
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold text-white">{item.name}</span>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 font-mono">{item.size}</span>
+                  <span className="text-sm font-semibold text-white group-hover:text-blue-300 transition-colors">
+                    {item.name}
+                  </span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 font-mono">
+                    {item.size}
+                  </span>
                 </div>
                 <div className="text-xs font-mono text-slate-300">{item.dimensions}</div>
                 <p className="text-[11px] text-slate-400 leading-tight">{item.desc}</p>
-              </div>
+                <div className="text-[10px] text-blue-400 font-semibold pt-1 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+                  <span>Open in Wizard</span>
+                  <ArrowRight className="w-3 h-3" />
+                </div>
+              </Link>
             ))}
           </div>
         </div>

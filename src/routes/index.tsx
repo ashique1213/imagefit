@@ -8,11 +8,13 @@ import { SignatureToolPage } from '../pages/SignatureTool';
 import { BackgroundToolPage } from '../pages/BackgroundTool';
 import { CropToolPage } from '../pages/CropTool';
 import { ImageEditorPage } from '../pages/ImageEditor';
+import { ApplicationPipelinePage } from '../pages/ApplicationPipeline';
 
 export const AppRoutes: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/pipeline" element={<ApplicationPipelinePage />} />
       <Route path="/compress" element={<ImageCompressorPage />} />
       <Route path="/resize" element={<ImageResizerPage />} />
       <Route path="/convert" element={<ImageConverterPage />} />
