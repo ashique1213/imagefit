@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import type { DragEvent, ChangeEvent, KeyboardEvent } from 'react';
-import { UploadCloud, Image as ImageIcon, Loader2, Sparkles, ShieldCheck } from 'lucide-react';
+import { UploadCloud, Image as ImageIcon, Loader2, ShieldCheck } from 'lucide-react';
 
 interface DropzoneProps {
   onFileSelected: (file: File) => void;
@@ -107,7 +107,7 @@ export const Dropzone: React.FC<DropzoneProps> = ({
           {isLoading ? (
             <Loader2 className="w-9 h-9 animate-spin text-blue-400" />
           ) : isDragOver ? (
-            <Sparkles className="w-9 h-9 animate-bounce" />
+            <UploadCloud className="w-9 h-9 animate-bounce text-white" />
           ) : (
             <UploadCloud className="w-9 h-9 text-blue-400" />
           )}

@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   FileArchive,
-  Sparkles,
+  Zap,
   Maximize2,
   RefreshCw,
 } from 'lucide-react';
@@ -198,7 +198,7 @@ export const BatchSettingsControls: React.FC<BatchSettingsControlsProps> = ({
             </>
           ) : (
             <>
-              <Sparkles className="w-5 h-5" />
+              <Zap className="w-5 h-5" />
               <span>Process All {totalItems} Files</span>
             </>
           )}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loader2, Sparkles } from 'lucide-react';
+import { Loader2, Image as ImageIcon } from 'lucide-react';
 
 export const PageLoader: React.FC = () => {
   return (
@@ -17,7 +17,7 @@ export const PageLoader: React.FC = () => {
 
       <div className="text-center space-y-1">
         <div className="flex items-center justify-center gap-1.5 text-sm font-bold text-white">
-          <Sparkles className="w-4 h-4 text-blue-400" />
+          <ImageIcon className="w-4 h-4 text-blue-400" />
           <span>Loading ImageFit Tool...</span>
         </div>
         <p className="text-xs text-slate-400">

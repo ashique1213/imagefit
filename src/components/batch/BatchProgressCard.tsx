@@ -4,7 +4,6 @@ import {
   CheckCircle2,
   AlertTriangle,
   RefreshCw,
-  Sparkles,
   TrendingDown,
   HardDrive,
 } from 'lucide-react';
@@ -132,7 +131,7 @@ export const BatchProgressCard: React.FC<BatchProgressCardProps> = ({
 
           <div className="p-4 rounded-2xl bg-slate-900/50 border border-slate-800 space-y-1">
             <div className="flex items-center gap-1.5 text-xs text-slate-400">
-              <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+              <CheckCircle2 className="w-3.5 h-3.5 text-blue-400" />
               <span>Processed Size</span>
             </div>
             <div className="text-base font-bold text-white">

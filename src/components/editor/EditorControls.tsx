@@ -8,7 +8,6 @@ import {
   Contrast,
   FileText,
   Sliders,
-  Sparkles,
   Rotate3D,
 } from 'lucide-react';
 import type { EditorSettings } from '../../utils/image/editImage';
@@ -295,7 +294,7 @@ export const EditorControls: React.FC<EditorControlsProps> = ({
             </>
           ) : (
             <>
-              <Sparkles className="w-5 h-5" />
+              <Sliders className="w-5 h-5" />
               <span>Apply & Preview Adjustments</span>
             </>
           )}

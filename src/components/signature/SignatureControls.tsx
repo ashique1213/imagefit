@@ -3,7 +3,6 @@ import {
   PenTool,
   Palette,
   Sliders,
-  Sparkles,
   Info,
   Check,
 } from 'lucide-react';
@@ -295,7 +294,7 @@ export const SignatureControls: React.FC<SignatureControlsProps> = ({
             </>
           ) : (
             <>
-              <Sparkles className="w-5 h-5" />
+              <PenTool className="w-5 h-5" />
               <span>Clean & Recolor Signature</span>
             </>
           )}

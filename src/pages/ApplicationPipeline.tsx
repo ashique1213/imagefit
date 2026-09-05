@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
-  Sparkles,
+  Wand2,
+  RefreshCw,
   ShieldCheck,
   Palette,
   FileCheck,
@@ -174,7 +175,7 @@ export const ApplicationPipelinePage: React.FC = () => {
           Flagship Feature
         </Badge>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-white flex items-center justify-center gap-3">
-          <Sparkles className="w-8 h-8 text-blue-400" />
+          <Wand2 className="w-8 h-8 text-blue-400" />
           All-in-One Application Wizard
         </h1>
         <p className="text-sm text-slate-400 max-w-xl mx-auto">
@@ -382,12 +383,12 @@ export const ApplicationPipelinePage: React.FC = () => {
                 >
                   {isProcessing ? (
                     <>
-                      <Sparkles className="w-5 h-5 animate-spin" />
+                      <RefreshCw className="w-5 h-5 animate-spin" />
                       <span>Executing 4-Stage Optimization Pipeline...</span>
                     </>
                   ) : (
                     <>
-                      <Sparkles className="w-5 h-5" />
+                      <Wand2 className="w-5 h-5" />
                       <span>
                         Generate {selectedPortal ? selectedPortal.name : 'Compliant'} Package
                       </span>

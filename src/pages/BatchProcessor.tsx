@@ -4,7 +4,7 @@ import {
   ShieldCheck,
   Zap,
   Archive,
-  Sparkles,
+  Image as ImageIcon,
 } from 'lucide-react';
 import { Badge } from '../components/common/Badge';
 import { ErrorBanner } from '../components/common/ErrorBanner';
@@ -246,7 +246,7 @@ export const BatchProcessorPage: React.FC = () => {
               }}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-slate-800/80 hover:bg-slate-750 text-blue-400 hover:text-blue-300 border border-slate-700 text-xs font-semibold shadow-lg shadow-blue-500/5 transition-all hover:scale-[1.02] cursor-pointer"
             >
-              <Sparkles className="w-4 h-4 text-blue-400" />
+              <ImageIcon className="w-4 h-4 text-blue-400" />
               <span>Or click here to test with 3 sample applicant images</span>
             </button>
           </div>

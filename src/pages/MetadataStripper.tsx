@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import {
   ShieldAlert,
-  Sparkles,
+  Image as ImageIcon,
   MapPin,
   Camera,
   ShieldCheck,
@@ -183,7 +183,7 @@ export const MetadataStripperPage: React.FC = () => {
               onClick={handleLoadDemo}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-slate-800/80 hover:bg-slate-750 text-emerald-400 hover:text-emerald-300 border border-slate-700 text-xs font-semibold shadow-lg shadow-emerald-500/5 transition-all hover:scale-[1.02] cursor-pointer"
             >
-              <Sparkles className="w-4 h-4 text-emerald-400" />
+              <ImageIcon className="w-4 h-4 text-emerald-400" />
               <span>Or click here to test with a specimen photo</span>
             </button>
           </div>

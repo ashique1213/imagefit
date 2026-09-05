@@ -5,7 +5,6 @@ import {
   ZoomIn,
   ZoomOut,
   Sliders,
-  Sparkles,
 } from 'lucide-react';
 import type { AspectRatioPreset } from '../../utils/image/cropImage';
 import { CROP_RATIO_PRESETS } from '../../utils/image/cropImage';
@@ -213,7 +212,7 @@ export const CropControls: React.FC<CropControlsProps> = ({
             </>
           ) : (
             <>
-              <Sparkles className="w-5 h-5" />
+              <Crop className="w-5 h-5" />
               <span>Apply & Preview Crop</span>
             </>
           )}

@@ -107,7 +107,7 @@ export const Footer: React.FC = () => {
         <div className="mt-12 pt-6 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
           <p>© {new Date().getFullYear()} ImageFit. All rights reserved.</p>
           <p className="flex items-center gap-1">
-            Built with React, TypeScript & Web APIs
+            100% Client-Side In-Browser Processing
           </p>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Palette, ShieldCheck, HelpCircle, AlertCircle, Info, Sparkles } from 'lucide-react';
+import { Palette, ShieldCheck, HelpCircle, AlertCircle, Info } from 'lucide-react';
 import { Badge } from '../components/common/Badge';
 import { ErrorBanner } from '../components/common/ErrorBanner';
 import { Dropzone } from '../components/upload/Dropzone';
@@ -218,7 +218,7 @@ export const BackgroundToolPage: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
             <div className="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-2">
               <div className="flex items-center gap-2 text-blue-400 font-bold text-sm">
-                <Sparkles className="w-4 h-4" />
+                <ShieldCheck className="w-4 h-4" />
                 Passport & Visa Standard
               </div>
               <p className="text-xs text-slate-400 leading-relaxed">

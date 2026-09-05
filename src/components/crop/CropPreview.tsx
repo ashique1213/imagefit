@@ -5,7 +5,6 @@ import {
   ShieldCheck,
   Scissors,
   RotateCcw,
-  Sparkles,
 } from 'lucide-react';
 import type { CropResult } from '../../utils/image/cropImage';
 import { triggerFileDownload, generateDownloadFilename } from '../../utils/image/downloadImage';
@@ -58,7 +57,7 @@ export const CropPreview: React.FC<CropPreviewProps> = ({
         </div>
 
         <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30 text-xs font-semibold">
-          <Sparkles className="w-3.5 h-3.5" />
+          <Scissors className="w-3.5 h-3.5" />
           <span>High-Resolution Extraction</span>
         </div>
       </div>

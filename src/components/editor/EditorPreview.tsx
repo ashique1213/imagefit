@@ -5,7 +5,6 @@ import {
   ShieldCheck,
   RotateCcw,
   Sliders,
-  Sparkles,
 } from 'lucide-react';
 import type { EditorResult, EditorSettings } from '../../utils/image/editImage';
 import { triggerFileDownload, generateDownloadFilename } from '../../utils/image/downloadImage';
@@ -136,7 +135,7 @@ export const EditorPreview: React.FC<EditorPreviewProps> = ({
         <div className="p-4 rounded-2xl bg-slate-900/50 border border-blue-500/30 ring-1 ring-blue-500/20 flex flex-col justify-between space-y-4">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-blue-300 uppercase tracking-wider flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5" />
+              <Sliders className="w-3.5 h-3.5" />
               Edited Result
             </span>
             <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/40 font-bold">

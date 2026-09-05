@@ -8,7 +8,7 @@ import {
   HelpCircle, 
   ChevronDown, 
   ChevronUp, 
-  Sparkles,
+  Wand2,
   ArrowRight,
   CheckCircle2
 } from 'lucide-react';
@@ -77,7 +77,7 @@ export const Home: React.FC = () => {
               to="/pipeline"
               className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold text-sm transition-all duration-200 shadow-xl shadow-blue-600/30 hover:shadow-blue-500/50 flex items-center gap-2.5 hover:-translate-y-0.5"
             >
-              <Sparkles className="w-4 h-4" />
+              <Wand2 className="w-4 h-4" />
               <span>Application Wizard</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
@@ -158,7 +158,7 @@ export const Home: React.FC = () => {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
             <div>
               <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-400 uppercase tracking-wider mb-2">
-                <Sparkles className="w-4 h-4" /> Quick Presets
+                <Sliders className="w-4 h-4" /> Quick Presets
               </div>
               <h2 className="text-xl sm:text-2xl font-bold text-white">Popular Portal Preset Formats</h2>
               <p className="text-xs text-slate-400 mt-1">

@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Palette,
   Sliders,
-  Sparkles,
   Check,
   Pipette,
   ShieldAlert,
@@ -307,7 +306,7 @@ export const BackgroundControls: React.FC<BackgroundControlsProps> = ({
             </>
           ) : (
             <>
-              <Sparkles className="w-5 h-5" />
+              <Palette className="w-5 h-5" />
               <span>Apply Background Color</span>
             </>
           )}

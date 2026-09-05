@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sliders, Target, Sparkles, Loader2, ArrowRight } from 'lucide-react';
+import { Sliders, Target, Zap, Loader2, ArrowRight } from 'lucide-react';
 import { kbToBytes, mbToBytes } from '../../utils/formatting/formatSize';
 
 export type CompressionMode = 'target' | 'quality';
@@ -107,7 +107,7 @@ export const CompressionControls: React.FC<CompressionControlsProps> = ({
             {/* Quick Presets */}
             <div className="space-y-2">
               <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                <Zap className="w-3.5 h-3.5 text-amber-400" />
                 <span>Common Form Presets</span>
               </label>
               <div className="flex flex-wrap gap-2">

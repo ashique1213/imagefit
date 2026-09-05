@@ -4,7 +4,6 @@ import {
   CheckCircle2,
   ShieldCheck,
   RotateCcw,
-  Sparkles,
   PenTool,
   Layers,
 } from 'lucide-react';
@@ -64,7 +63,7 @@ export const SignaturePreview: React.FC<SignaturePreviewProps> = ({
 
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30 text-xs font-semibold">
-            <Sparkles className="w-3.5 h-3.5" />
+            <PenTool className="w-3.5 h-3.5" />
             <span>Anti-Aliased Ink</span>
           </span>
         </div>

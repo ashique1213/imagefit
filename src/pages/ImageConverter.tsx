@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { RefreshCw, ShieldCheck, HelpCircle, Layers, FileImage, Sparkles } from 'lucide-react';
+import { RefreshCw, ShieldCheck, HelpCircle, Layers, FileImage, Zap } from 'lucide-react';
 import { Badge } from '../components/common/Badge';
 import { ErrorBanner } from '../components/common/ErrorBanner';
 import { Dropzone } from '../components/upload/Dropzone';
@@ -161,7 +161,7 @@ export const ImageConverterPage: React.FC = () => {
 
             <div className="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-2">
               <div className="flex items-center gap-2 text-purple-400 font-bold text-sm">
-                <Sparkles className="w-4 h-4" />
+                <Zap className="w-4 h-4" />
                 WebP
               </div>
               <p className="text-xs text-slate-400 leading-relaxed">

@@ -6,7 +6,6 @@ import {
   Lock,
   Unlock,
   ArrowLeftRight,
-  Sparkles,
   Sliders,
   Check,
   RotateCcw,
@@ -593,7 +592,7 @@ export const ResizeControls: React.FC<ResizeControlsProps> = ({
             </>
           ) : (
             <>
-              <Sparkles className="w-4 h-4" />
+              <Maximize2 className="w-4 h-4" />
               <span>Resize to {width} × {height} px</span>
             </>
           )}

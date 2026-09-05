@@ -6,7 +6,6 @@ import {
   Info,
   Palette,
   Layers,
-  Sparkles,
 } from 'lucide-react';
 import type { TargetFormat, ConvertOptions } from '../../utils/image/convertImage';
 
@@ -338,7 +337,7 @@ export const ConverterControls: React.FC<ConverterControlsProps> = ({
             </>
           ) : (
             <>
-              <Sparkles className="w-5 h-5" />
+              <RefreshCw className="w-5 h-5" />
               <span>Convert to {targetFormat.toUpperCase()}</span>
             </>
           )}

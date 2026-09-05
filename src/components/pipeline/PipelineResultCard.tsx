@@ -6,7 +6,6 @@ import {
   ShieldCheck,
   RotateCcw,
   Sliders,
-  Sparkles,
   FileCheck2,
 } from 'lucide-react';
 import type { PipelineExecutionResult } from '../../utils/image/pipelineEngine';
@@ -65,7 +64,7 @@ export const PipelineResultCard: React.FC<PipelineResultCardProps> = ({
         <div className="flex items-center gap-2">
           {result.allPassed ? (
             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-xs font-semibold">
-              <Sparkles className="w-3.5 h-3.5" />
+              <CheckCircle2 className="w-3.5 h-3.5" />
               <span>100% Portal Compliant</span>
             </span>
           ) : (
@@ -158,7 +157,7 @@ export const PipelineResultCard: React.FC<PipelineResultCardProps> = ({
         <div className="p-4 rounded-2xl bg-slate-900/50 border border-emerald-500/30 ring-1 ring-emerald-500/20 flex flex-col justify-between space-y-4">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold text-emerald-300 uppercase tracking-wider flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5" />
+              <CheckCircle2 className="w-3.5 h-3.5" />
               Submission-Ready Output
             </span>
             <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold">
