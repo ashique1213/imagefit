@@ -1,15 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
-  Wand2,
   RefreshCw,
-  ShieldCheck,
   Palette,
-  FileCheck,
   RotateCw,
   FlipHorizontal,
+  ArrowRight,
 } from 'lucide-react';
-import { Badge } from '../components/common/Badge';
 import { ErrorBanner } from '../components/common/ErrorBanner';
 import { Dropzone } from '../components/upload/Dropzone';
 import { ImageDetailsCard } from '../components/upload/ImageDetailsCard';
@@ -170,16 +167,12 @@ export const ApplicationPipelinePage: React.FC = () => {
       />
 
       {/* Page Header */}
-      <div className="text-center space-y-3">
-        <Badge variant="blue" size="md">
-          Flagship Feature
-        </Badge>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white flex items-center justify-center gap-3">
-          <Wand2 className="w-8 h-8 text-blue-400" />
-          All-in-One Application Wizard
+      <div className="text-center space-y-2">
+        <h1 className="text-3xl sm:text-4xl font-black text-gray-900">
+          Application Wizard
         </h1>
-        <p className="text-sm text-slate-400 max-w-xl mx-auto">
-          Prepare 100% portal-compliant photos & signatures in seconds. Automatically scales dimensions, applies background fills, and compresses to target KB.
+        <p className="text-sm sm:text-base text-gray-500 max-w-xl mx-auto">
+          Prepare photos & signatures to match official portal specifications.
         </p>
       </div>
 
@@ -234,7 +227,7 @@ export const ApplicationPipelinePage: React.FC = () => {
               onResetAll={handleResetAll}
             />
           ) : (
-            <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-6">
+            <div className="bg-white p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-sm space-y-6">
               {/* Step 1: Select Portal Preset */}
               <PortalPresetSelector
                 selectedPortalId={selectedPortal?.id || null}
@@ -243,47 +236,47 @@ export const ApplicationPipelinePage: React.FC = () => {
 
               {/* Custom specs form if selectedPortal === null */}
               {!selectedPortal && (
-                <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800/80 space-y-3">
-                  <span className="text-xs font-semibold text-slate-200 uppercase tracking-wider block">
+                <div className="p-5 rounded-2xl bg-gray-50 border border-gray-200 space-y-3">
+                  <span className="text-xs font-bold text-gray-800 uppercase tracking-wider block">
                     Custom Portal Target Specifications
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
                     <div>
-                      <label className="text-[11px] text-slate-400 block mb-1">Target Width (px)</label>
+                      <label className="text-[11px] font-bold text-gray-600 block mb-1">Target Width (px)</label>
                       <input
                         type="number"
                         min="50"
                         max="3000"
                         value={customWidth}
                         onChange={(e) => setCustomWidth(parseInt(e.target.value, 10) || 300)}
-                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white font-mono"
+                        className="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm text-gray-900 font-mono focus:outline-none focus:border-[#e5322d]"
                       />
                     </div>
                     <div>
-                      <label className="text-[11px] text-slate-400 block mb-1">Target Height (px)</label>
+                      <label className="text-[11px] font-bold text-gray-600 block mb-1">Target Height (px)</label>
                       <input
                         type="number"
                         min="50"
                         max="3000"
                         value={customHeight}
                         onChange={(e) => setCustomHeight(parseInt(e.target.value, 10) || 300)}
-                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white font-mono"
+                        className="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm text-gray-900 font-mono focus:outline-none focus:border-[#e5322d]"
                       />
                     </div>
                     <div>
-                      <label className="text-[11px] text-slate-400 block mb-1">Maximum File Size (KB)</label>
+                      <label className="text-[11px] font-bold text-gray-600 block mb-1">Maximum File Size (KB)</label>
                       <input
                         type="number"
                         min="5"
                         max="5000"
                         value={customMaxKb}
                         onChange={(e) => setCustomMaxKb(parseInt(e.target.value, 10) || 50)}
-                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white font-mono"
+                        className="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm text-gray-900 font-mono focus:outline-none focus:border-[#e5322d]"
                       />
                     </div>
                     <div>
-                      <label className="text-[11px] text-slate-400 block mb-1">Backdrop Color</label>
-                      <div className="flex items-center gap-2 bg-slate-800 border border-slate-700 rounded-xl px-2.5 py-1.5">
+                      <label className="text-[11px] font-bold text-gray-600 block mb-1">Backdrop Color</label>
+                      <div className="flex items-center gap-2 bg-white border border-gray-300 rounded-xl px-2.5 py-1.5">
                         <input
                           type="color"
                           value={customBgColor}
@@ -294,7 +287,7 @@ export const ApplicationPipelinePage: React.FC = () => {
                           type="text"
                           value={customBgColor}
                           onChange={(e) => setCustomBgColor(e.target.value)}
-                          className="w-16 bg-transparent text-xs text-white font-mono uppercase focus:outline-none"
+                          className="w-16 bg-transparent text-xs text-gray-900 font-mono uppercase focus:outline-none font-bold"
                         />
                       </div>
                     </div>
@@ -303,15 +296,15 @@ export const ApplicationPipelinePage: React.FC = () => {
               )}
 
               {/* Step 2: Background Fill & Orientation Controls */}
-              <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800/80 space-y-4">
+              <div className="p-5 rounded-2xl bg-gray-50 border border-gray-200 space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Palette className="w-4 h-4 text-blue-400" />
-                    <label className="text-xs font-semibold text-slate-200 uppercase tracking-wider">
+                    <Palette className="w-4 h-4 text-[#e5322d]" />
+                    <label className="text-xs font-bold text-gray-800 uppercase tracking-wider">
                       Background Fill & Orientation
                     </label>
                   </div>
-                  <span className="text-[11px] text-slate-400">
+                  <span className="text-[11px] text-gray-500 font-medium">
                     {selectedPortal?.backgroundName || 'White Background'}
                   </span>
                 </div>
@@ -321,53 +314,84 @@ export const ApplicationPipelinePage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => setBackgroundColor('#FFFFFF')}
-                    className={`px-3 py-1.5 rounded-xl border text-xs font-medium flex items-center gap-2 transition-all ${
+                    className={`px-3.5 py-2 rounded-xl border text-xs font-bold flex items-center gap-2 transition-all cursor-pointer ${
                       backgroundColor === '#FFFFFF'
-                        ? 'bg-blue-600/20 border-blue-500 text-white'
-                        : 'bg-slate-800 border-slate-700 text-slate-300'
+                        ? 'bg-red-50 border-red-300 text-[#e5322d] shadow-xs'
+                        : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-100'
                     }`}
                   >
-                    <span className="w-3 h-3 rounded-full bg-white border border-slate-500" />
-                    Pure White (Official Std)
+                    <span className="w-3.5 h-3.5 rounded-full bg-white border border-gray-400" />
+                    Pure White
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setBackgroundColor('#E0F2FE')}
-                    className={`px-3 py-1.5 rounded-xl border text-xs font-medium flex items-center gap-2 transition-all ${
+                    className={`px-3.5 py-2 rounded-xl border text-xs font-bold flex items-center gap-2 transition-all cursor-pointer ${
                       backgroundColor === '#E0F2FE'
-                        ? 'bg-blue-600/20 border-blue-500 text-white'
-                        : 'bg-slate-800 border-slate-700 text-slate-300'
+                        ? 'bg-blue-50 border-blue-300 text-blue-700 shadow-xs'
+                        : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-100'
                     }`}
                   >
-                    <span className="w-3 h-3 rounded-full bg-[#E0F2FE] border border-slate-500" />
-                    Passport Light Blue
+                    <span className="w-3.5 h-3.5 rounded-full bg-[#E0F2FE] border border-blue-300" />
+                    Light Blue
                   </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setBackgroundColor('#F1F5F9')}
+                    className={`px-3.5 py-2 rounded-xl border text-xs font-bold flex items-center gap-2 transition-all cursor-pointer ${
+                      backgroundColor === '#F1F5F9'
+                        ? 'bg-gray-100 border-gray-400 text-gray-900 shadow-xs'
+                        : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-100'
+                    }`}
+                  >
+                    <span className="w-3.5 h-3.5 rounded-full bg-[#F1F5F9] border border-gray-300" />
+                    Off-White
+                  </button>
+
+                  {/* Custom Background Color Picker */}
+                  <div
+                    className={`flex items-center gap-2 px-2.5 py-1.5 rounded-xl border transition-all ${
+                      backgroundColor !== '#FFFFFF' && backgroundColor !== '#E0F2FE' && backgroundColor !== '#F1F5F9'
+                        ? 'bg-red-50 border-red-300 text-[#e5322d] shadow-xs'
+                        : 'bg-white border-gray-200 text-gray-700'
+                    }`}
+                  >
+                    <input
+                      type="color"
+                      value={backgroundColor}
+                      onChange={(e) => setBackgroundColor(e.target.value)}
+                      className="w-5 h-5 rounded cursor-pointer bg-transparent border-0 p-0"
+                      title="Pick custom background color"
+                    />
+                    <span className="text-xs font-mono font-bold uppercase">{backgroundColor}</span>
+                  </div>
 
                   {/* Orientation Controls */}
                   <button
                     type="button"
                     onClick={() => setFlipHorizontal(!flipHorizontal)}
-                    className={`px-3 py-1.5 rounded-xl border text-xs font-medium flex items-center gap-1.5 transition-all ${
+                    className={`px-3.5 py-2 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition-all ${
                       flipHorizontal
-                        ? 'bg-purple-600/20 border-purple-500 text-white'
-                        : 'bg-slate-800 border-slate-700 text-slate-300'
+                        ? 'bg-purple-50 border-purple-300 text-purple-700 shadow-xs'
+                        : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-100'
                     }`}
                   >
-                    <FlipHorizontal className="w-3.5 h-3.5 text-purple-400" />
+                    <FlipHorizontal className="w-3.5 h-3.5 text-purple-600" />
                     <span>Mirror (Selfie Fix)</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setRotation((((rotation + 90) % 360) as 0 | 90 | 180 | 270))}
-                    className={`px-3 py-1.5 rounded-xl border text-xs font-medium flex items-center gap-1.5 transition-all ${
+                    className={`px-3.5 py-2 rounded-xl border text-xs font-bold flex items-center gap-1.5 transition-all ${
                       rotation !== 0
-                        ? 'bg-blue-600/20 border-blue-500 text-white'
-                        : 'bg-slate-800 border-slate-700 text-slate-300'
+                        ? 'bg-blue-50 border-blue-300 text-blue-700 shadow-xs'
+                        : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-100'
                     }`}
                   >
-                    <RotateCw className="w-3.5 h-3.5 text-blue-400" />
+                    <RotateCw className="w-3.5 h-3.5 text-blue-600" />
                     <span>Rotate 90° ({rotation}°)</span>
                   </button>
                 </div>
@@ -379,7 +403,7 @@ export const ApplicationPipelinePage: React.FC = () => {
                   type="button"
                   onClick={handleRunPipeline}
                   disabled={isProcessing}
-                  className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 active:scale-[0.99] font-bold text-white shadow-xl shadow-blue-500/25 flex items-center justify-center gap-3 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer text-base"
+                  className="w-full py-4 px-8 rounded-2xl bg-[#e5322d] hover:bg-[#cb1b16] active:scale-[0.99] font-black text-white shadow-xl shadow-red-500/25 flex items-center justify-center gap-3 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer text-base"
                 >
                   {isProcessing ? (
                     <>
@@ -388,7 +412,7 @@ export const ApplicationPipelinePage: React.FC = () => {
                     </>
                   ) : (
                     <>
-                      <Wand2 className="w-5 h-5" />
+                      <ArrowRight className="w-5 h-5" />
                       <span>
                         Generate {selectedPortal ? selectedPortal.name : 'Compliant'} Package
                       </span>
@@ -400,42 +424,6 @@ export const ApplicationPipelinePage: React.FC = () => {
           )}
         </div>
       )}
-
-      {/* Educational Banner */}
-      <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-4">
-        <div className="flex items-center gap-3 text-slate-200">
-          <FileCheck className="w-5 h-5 text-blue-400" />
-          <h3 className="font-bold text-base">How the All-in-One Pipeline Protects Your Application</h3>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-400 leading-relaxed">
-          <div className="space-y-2 p-3.5 rounded-xl bg-slate-900/40 border border-slate-800/60">
-            <span className="font-semibold text-slate-200 block">
-              1. Exact Pixel Conformity
-            </span>
-            <p>
-              Portals reject images that are even 1 pixel off their aspect ratio. Our pipeline mathematically guarantees exact dimensions using high-quality multi-step half-scaling to eliminate aliasing.
-            </p>
-          </div>
-
-          <div className="space-y-2 p-3.5 rounded-xl bg-slate-900/40 border border-slate-800/60">
-            <span className="font-semibold text-slate-200 block">
-              2. Guaranteed Target File Size
-            </span>
-            <p>
-              Never guess quality sliders again. The pipeline runs an automated binary search in browser memory to find the exact JPEG quality that fits strictly below your portal's maximum KB ceiling (e.g. 50 KB).
-            </p>
-          </div>
-        </div>
-
-        <div className="pt-2 flex items-center justify-between text-xs text-slate-500 border-t border-slate-800/60">
-          <span>End-to-End Pipeline in browser memory</span>
-          <div className="inline-flex items-center gap-1.5 text-emerald-400 font-medium">
-            <ShieldCheck className="w-4 h-4" />
-            Zero Server Uploads
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

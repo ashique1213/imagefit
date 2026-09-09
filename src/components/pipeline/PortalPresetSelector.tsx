@@ -27,12 +27,9 @@ export const PortalPresetSelector: React.FC<PortalPresetSelectorProps> = ({
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block">
-          Select Official Application Standard
+        <label className="text-xs font-bold text-gray-900 uppercase tracking-wider block">
+          Select Application Standard
         </label>
-        <span className="text-[11px] text-slate-400">
-          Auto-configures resolution, target KB, format & backdrop
-        </span>
       </div>
 
       {/* Category Pills */}
@@ -40,21 +37,21 @@ export const PortalPresetSelector: React.FC<PortalPresetSelectorProps> = ({
         <button
           type="button"
           onClick={() => setActiveCategory('all')}
-          className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
+          className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
             activeCategory === 'all'
-              ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
-              : 'bg-slate-900/60 border border-slate-800 text-slate-400 hover:text-slate-200'
+              ? 'bg-[#e5322d] text-white shadow-xs'
+              : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-gray-900'
           }`}
         >
-          All Portals ({APPLICATION_PORTALS.length})
+          All Portals
         </button>
         <button
           type="button"
           onClick={() => setActiveCategory('gov-exam')}
-          className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all ${
+          className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
             activeCategory === 'gov-exam'
-              ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
-              : 'bg-slate-900/60 border border-slate-800 text-slate-400 hover:text-slate-200'
+              ? 'bg-[#e5322d] text-white shadow-xs'
+              : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-gray-900'
           }`}
         >
           <GraduationCap className="w-3.5 h-3.5" />
@@ -63,10 +60,10 @@ export const PortalPresetSelector: React.FC<PortalPresetSelectorProps> = ({
         <button
           type="button"
           onClick={() => setActiveCategory('passport-visa')}
-          className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all ${
+          className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
             activeCategory === 'passport-visa'
-              ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
-              : 'bg-slate-900/60 border border-slate-800 text-slate-400 hover:text-slate-200'
+              ? 'bg-[#e5322d] text-white shadow-xs'
+              : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-gray-900'
           }`}
         >
           <Globe className="w-3.5 h-3.5" />
@@ -75,10 +72,10 @@ export const PortalPresetSelector: React.FC<PortalPresetSelectorProps> = ({
         <button
           type="button"
           onClick={() => setActiveCategory('banking')}
-          className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all ${
+          className={`px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
             activeCategory === 'banking'
-              ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
-              : 'bg-slate-900/60 border border-slate-800 text-slate-400 hover:text-slate-200'
+              ? 'bg-[#e5322d] text-white shadow-xs'
+              : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-gray-900'
           }`}
         >
           <Landmark className="w-3.5 h-3.5" />
@@ -97,32 +94,29 @@ export const PortalPresetSelector: React.FC<PortalPresetSelectorProps> = ({
               onClick={() => onSelectPortal(portal)}
               className={`p-4 rounded-2xl border text-left flex flex-col justify-between space-y-2.5 transition-all cursor-pointer ${
                 isSelected
-                  ? 'bg-blue-600/20 border-blue-500 text-white shadow-lg shadow-blue-500/10 ring-1 ring-blue-500/50'
-                  : 'bg-slate-900/50 border-slate-800 hover:border-slate-700 hover:bg-slate-800/40 text-slate-300'
+                  ? 'bg-red-50/70 border-[#e5322d] text-gray-900 shadow-md ring-2 ring-red-500/20'
+                  : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow-xs text-gray-800'
               }`}
             >
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/30">
+                  <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 border border-gray-200">
                     {portal.portal.split(' ')[0]}
                   </span>
                   {isSelected && (
-                    <span className="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center">
+                    <span className="w-5 h-5 rounded-full bg-[#e5322d] text-white flex items-center justify-center shadow-xs">
                       <Check className="w-3 h-3 stroke-[3]" />
                     </span>
                   )}
                 </div>
-                <h4 className="font-bold text-sm text-white">{portal.name}</h4>
-                <p className="text-[11px] text-slate-400 mt-0.5 line-clamp-2">
-                  {portal.officialRuleText}
-                </p>
+                <h4 className="font-bold text-sm text-gray-900">{portal.name}</h4>
               </div>
 
-              <div className="pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px]">
-                <span className="font-mono text-slate-300">
+              <div className="pt-2 border-t border-gray-100 flex items-center justify-between text-[11px]">
+                <span className="font-mono font-semibold text-gray-700">
                   {portal.width} × {portal.height} px
                 </span>
-                <span className="font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
+                <span className="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100">
                   Max {portal.maxKb} KB
                 </span>
               </div>
@@ -136,33 +130,30 @@ export const PortalPresetSelector: React.FC<PortalPresetSelectorProps> = ({
           onClick={() => onSelectPortal(null)}
           className={`p-4 rounded-2xl border text-left flex flex-col justify-between space-y-2.5 transition-all cursor-pointer ${
             selectedPortalId === null
-              ? 'bg-blue-600/20 border-blue-500 text-white shadow-lg shadow-blue-500/10 ring-1 ring-blue-500/50'
-              : 'bg-slate-900/50 border-slate-800 hover:border-slate-700 hover:bg-slate-800/40 text-slate-300'
+              ? 'bg-red-50/70 border-[#e5322d] text-gray-900 shadow-md ring-2 ring-red-500/20'
+              : 'bg-white border-gray-200 hover:border-gray-300 hover:shadow-xs text-gray-800'
           }`}
         >
           <div>
             <div className="flex items-center justify-between mb-1">
-              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
+              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 border border-gray-200">
                 Custom
               </span>
               {selectedPortalId === null && (
-                <span className="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center">
+                <span className="w-5 h-5 rounded-full bg-[#e5322d] text-white flex items-center justify-center shadow-xs">
                   <Check className="w-3 h-3 stroke-[3]" />
                 </span>
               )}
             </div>
-            <h4 className="font-bold text-sm text-white flex items-center gap-1.5">
-              <Sliders className="w-4 h-4 text-blue-400" />
+            <h4 className="font-bold text-sm text-gray-900 flex items-center gap-1.5">
+              <Sliders className="w-4 h-4 text-[#e5322d]" />
               Custom Requirements
             </h4>
-            <p className="text-[11px] text-slate-400 mt-0.5">
-              Specify your own exact width, height, target KB, and background rules manually.
-            </p>
           </div>
 
-          <div className="pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+          <div className="pt-2 border-t border-gray-100 flex items-center justify-between text-[11px] text-gray-500">
             <span>User Configured</span>
-            <span className="text-blue-400">Flexible</span>
+            <span className="text-[#e5322d] font-bold">Flexible</span>
           </div>
         </button>
       </div>
