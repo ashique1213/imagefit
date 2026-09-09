@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Minimize2 } from 'lucide-react';
-import { Badge } from '../components/common/Badge';
 import { ErrorBanner } from '../components/common/ErrorBanner';
 import { Dropzone } from '../components/upload/Dropzone';
 import { ImageDetailsCard } from '../components/upload/ImageDetailsCard';
@@ -126,15 +125,12 @@ export const ImageCompressorPage: React.FC = () => {
       />
 
       {/* Page Header */}
-      <div className="text-center space-y-3">
-        <Badge variant="blue" size="md">
-          Target KB & MB Compression
-        </Badge>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white flex items-center justify-center gap-3">
-          <Minimize2 className="w-8 h-8 text-blue-400" />
-          Image Compressor
+      <div className="text-center space-y-2">
+        <h1 className="text-3xl sm:text-4xl font-black text-gray-900 flex items-center justify-center gap-3">
+          <Minimize2 className="w-8 h-8 text-[#e5322d]" />
+          Compress IMAGE
         </h1>
-        <p className="text-sm text-slate-400 max-w-xl mx-auto">
+        <p className="text-sm text-gray-500 max-w-xl mx-auto">
           Upload your photo or document and compress it to an exact target file size (e.g. 20KB, 50KB, 100KB) for government, exam, and job portals.
         </p>
       </div>
@@ -184,17 +180,17 @@ export const ImageCompressorPage: React.FC = () => {
       )}
 
       {/* Explanatory Guidelines Footer */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-400 pt-4">
-        <div className="p-4 rounded-2xl glass-panel space-y-1">
-          <span className="font-semibold text-slate-200">Binary Search Precision</span>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-gray-500 pt-4">
+        <div className="p-4 rounded-2xl bg-white border border-gray-200 shadow-xs space-y-1">
+          <span className="font-bold text-gray-900">Binary Search Precision</span>
           <p>Iterates quality factors dynamically to pinpoint within 1-2 KB of your target size.</p>
         </div>
-        <div className="p-4 rounded-2xl glass-panel space-y-1">
-          <span className="font-semibold text-slate-200">Dimension Safeguards</span>
+        <div className="p-4 rounded-2xl bg-white border border-gray-200 shadow-xs space-y-1">
+          <span className="font-bold text-gray-900">Dimension Safeguards</span>
           <p>Optional smart dimension scaling kicks in if quality reduction alone cannot fit strict limits.</p>
         </div>
-        <div className="p-4 rounded-2xl glass-panel space-y-1">
-          <span className="font-semibold text-slate-200">100% In-Browser Privacy</span>
+        <div className="p-4 rounded-2xl bg-white border border-gray-200 shadow-xs space-y-1">
+          <span className="font-bold text-gray-900">100% In-Browser Privacy</span>
           <p>The entire binary search and canvas export run in your browser. Zero data transmission.</p>
         </div>
       </div>

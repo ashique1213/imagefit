@@ -106,14 +106,14 @@ export const ImageConverterPage: React.FC = () => {
 
       {/* Header */}
       <div className="text-center space-y-3">
-        <Badge variant="blue" size="md">
+        <Badge variant="green" size="md">
           Format Conversion Engine
         </Badge>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white flex items-center justify-center gap-3">
-          <RefreshCw className="w-8 h-8 text-blue-400" />
-          Image Format Converter
+        <h1 className="text-3xl sm:text-4xl font-black text-gray-900 flex items-center justify-center gap-3">
+          <RefreshCw className="w-8 h-8 text-[#e5322d]" />
+          Convert to JPG / PNG
         </h1>
-        <p className="text-sm text-slate-400 max-w-xl mx-auto">
+        <p className="text-sm text-gray-500 max-w-xl mx-auto">
           Convert instantly between JPG, PNG, and WebP formats in browser memory. Includes automated transparency handling to prevent black backgrounds on JPEG conversions.
         </p>
       </div>
@@ -139,32 +139,32 @@ export const ImageConverterPage: React.FC = () => {
 
           {/* Quick Format Explainer Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-            <div className="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-2">
-              <div className="flex items-center gap-2 text-blue-400 font-bold text-sm">
+            <div className="p-5 rounded-2xl bg-white border border-gray-200 shadow-xs space-y-2">
+              <div className="flex items-center gap-2 text-blue-600 font-bold text-sm">
                 <FileImage className="w-4 h-4" />
                 JPG / JPEG
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-gray-500 leading-relaxed">
                 Accepted by 100% of exam portals, government jobs (SSC, UPSC, Banking), and college admission forms.
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-2">
-              <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+            <div className="p-5 rounded-2xl bg-white border border-gray-200 shadow-xs space-y-2">
+              <div className="flex items-center gap-2 text-emerald-600 font-bold text-sm">
                 <Layers className="w-4 h-4" />
                 PNG
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-gray-500 leading-relaxed">
                 Lossless format ideal for scanned signatures, certificates, diagrams, and transparent cutouts.
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-2">
-              <div className="flex items-center gap-2 text-purple-400 font-bold text-sm">
+            <div className="p-5 rounded-2xl bg-white border border-gray-200 shadow-xs space-y-2">
+              <div className="flex items-center gap-2 text-purple-600 font-bold text-sm">
                 <Zap className="w-4 h-4" />
                 WebP
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-gray-500 leading-relaxed">
                 Next-gen format providing ~30% smaller file size with high visual fidelity and alpha transparency support.
               </p>
             </div>
@@ -210,15 +210,15 @@ export const ImageConverterPage: React.FC = () => {
       )}
 
       {/* Educational Guide: Image Formats Comparison */}
-      <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-4">
-        <div className="flex items-center gap-3 text-slate-200">
-          <HelpCircle className="w-5 h-5 text-blue-400" />
+      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-sm space-y-4">
+        <div className="flex items-center gap-3 text-gray-900">
+          <HelpCircle className="w-5 h-5 text-emerald-600" />
           <h3 className="font-bold text-base">Image Format Quick Guide & Important Guidelines</h3>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-400 leading-relaxed">
-          <div className="space-y-2 p-3.5 rounded-xl bg-slate-900/40 border border-slate-800/60">
-            <span className="font-semibold text-slate-200 block">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-600 leading-relaxed">
+          <div className="space-y-2 p-4 rounded-xl bg-gray-50 border border-gray-200">
+            <span className="font-bold text-gray-900 block">
               Why do transparent PNGs turn black when converted to JPG?
             </span>
             <p>
@@ -226,20 +226,20 @@ export const ImageConverterPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="space-y-2 p-3.5 rounded-xl bg-slate-900/40 border border-slate-800/60">
-            <span className="font-semibold text-slate-200 block">
+          <div className="space-y-2 p-4 rounded-xl bg-gray-50 border border-gray-200">
+            <span className="font-bold text-gray-900 block">
               Which format should I use for government/exam portals?
             </span>
             <p>
-              Always choose <strong>JPG / JPEG</strong> unless specified otherwise. Major testing agencies (SSC, UPSC, NTA, IBPS) and government portals strictly validate file extensions and MIME headers for <code className="text-blue-300 font-mono">.jpg</code> or <code className="text-blue-300 font-mono">.jpeg</code>.
+              Always choose <strong>JPG / JPEG</strong> unless specified otherwise. Major testing agencies (SSC, UPSC, NTA, IBPS) and government portals strictly validate file extensions and MIME headers for <code className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-mono">.jpg</code> or <code className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-mono">.jpeg</code>.
             </p>
           </div>
         </div>
 
-        <div className="pt-2 flex items-center justify-between text-xs text-slate-500 border-t border-slate-800/60">
+        <div className="pt-2 flex items-center justify-between text-xs text-gray-500 border-t border-gray-100">
           <span>Client-side format conversion using HTML5 Canvas & Blob API</span>
-          <div className="inline-flex items-center gap-1.5 text-emerald-400 font-medium">
-            <ShieldCheck className="w-4 h-4" />
+          <div className="inline-flex items-center gap-1.5 text-emerald-700 font-semibold">
+            <ShieldCheck className="w-4 h-4 text-emerald-600" />
             Zero Server Uploads
           </div>
         </div>

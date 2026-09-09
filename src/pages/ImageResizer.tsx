@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Maximize2, ShieldCheck, HelpCircle } from 'lucide-react';
-import { Badge } from '../components/common/Badge';
 import { ErrorBanner } from '../components/common/ErrorBanner';
 import { Dropzone } from '../components/upload/Dropzone';
 import { ImageDetailsCard } from '../components/upload/ImageDetailsCard';
@@ -114,15 +113,12 @@ export const ImageResizerPage: React.FC = () => {
       />
 
       {/* Page Header */}
-      <div className="text-center space-y-3">
-        <Badge variant="purple" size="md">
-          Pixel & Percentage Resizer
-        </Badge>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white flex items-center justify-center gap-3">
-          <Maximize2 className="w-8 h-8 text-purple-400" />
-          Image Resizer
+      <div className="text-center space-y-2">
+        <h1 className="text-3xl sm:text-4xl font-black text-gray-900 flex items-center justify-center gap-3">
+          <Maximize2 className="w-8 h-8 text-[#e5322d]" />
+          Resize IMAGE
         </h1>
-        <p className="text-sm text-slate-400 max-w-xl mx-auto">
+        <p className="text-sm text-gray-500 max-w-xl mx-auto">
           Resize photo and document dimensions by exact pixels, scale percentages, or official government and exam application presets.
         </p>
       </div>
@@ -174,24 +170,24 @@ export const ImageResizerPage: React.FC = () => {
       )}
 
       {/* Guidance and Portal Tips Section */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-400 pt-4">
-        <div className="p-4 rounded-2xl glass-panel space-y-1">
-          <span className="font-semibold text-slate-200 flex items-center gap-1.5">
-            <Maximize2 className="w-3.5 h-3.5 text-purple-400" />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-gray-500 pt-4">
+        <div className="p-4 rounded-2xl bg-white border border-gray-200 shadow-xs space-y-1">
+          <span className="font-bold text-gray-900 flex items-center gap-1.5">
+            <Maximize2 className="w-3.5 h-3.5 text-blue-600" />
             Aspect Ratio Lock
           </span>
           <p>Toggle the link icon to automatically recompute heights when adjusting widths, preventing unwanted image distortion.</p>
         </div>
-        <div className="p-4 rounded-2xl glass-panel space-y-1">
-          <span className="font-semibold text-slate-200 flex items-center gap-1.5">
-            <HelpCircle className="w-3.5 h-3.5 text-purple-400" />
+        <div className="p-4 rounded-2xl bg-white border border-gray-200 shadow-xs space-y-1">
+          <span className="font-bold text-gray-900 flex items-center gap-1.5">
+            <HelpCircle className="w-3.5 h-3.5 text-blue-600" />
             Fit & Pad Options
           </span>
           <p>Use "Fit & Pad" mode to convert non-standard images into required passport boxes without stretching face proportions.</p>
         </div>
-        <div className="p-4 rounded-2xl glass-panel space-y-1">
-          <span className="font-semibold text-slate-200 flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+        <div className="p-4 rounded-2xl bg-white border border-gray-200 shadow-xs space-y-1">
+          <span className="font-bold text-gray-900 flex items-center gap-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
             100% Client-Side Privacy
           </span>
           <p>Processing happens entirely inside your browser's canvas pipeline. Zero files are uploaded or transmitted to any server.</p>

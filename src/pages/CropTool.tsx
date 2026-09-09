@@ -169,14 +169,14 @@ export const CropToolPage: React.FC = () => {
 
       {/* Page Header */}
       <div className="text-center space-y-3">
-        <Badge variant="purple" size="md">
+        <Badge variant="amber" size="md">
           Precision Aspect Ratio Cropper
         </Badge>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white flex items-center justify-center gap-3">
-          <Crop className="w-8 h-8 text-purple-400" />
-          Interactive Image Crop Tool
+        <h1 className="text-3xl sm:text-4xl font-black text-gray-900 flex items-center justify-center gap-3">
+          <Crop className="w-8 h-8 text-[#e5322d]" />
+          Crop IMAGE
         </h1>
-        <p className="text-sm text-slate-400 max-w-xl mx-auto">
+        <p className="text-sm text-gray-500 max-w-xl mx-auto">
           Crop photo and signature uploads with official passport ratios (35:45 mm, 1:1 square, 3:4 portrait) or freeform drag handles.
         </p>
       </div>
@@ -202,32 +202,32 @@ export const CropToolPage: React.FC = () => {
 
           {/* Quick Guidance Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-            <div className="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-2">
-              <div className="flex items-center gap-2 text-purple-400 font-bold text-sm">
+            <div className="p-5 rounded-2xl bg-white border border-gray-200 shadow-xs space-y-2">
+              <div className="flex items-center gap-2 text-orange-600 font-bold text-sm">
                 <Scissors className="w-4 h-4" />
                 Passport Photo Ratios
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-gray-500 leading-relaxed">
                 One-click presets for official 3.5 × 4.5 cm (India/UK/EU), 2 × 2 in (US Visa), and standard 3:4 exam portraits.
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-2">
-              <div className="flex items-center gap-2 text-blue-400 font-bold text-sm">
+            <div className="p-5 rounded-2xl bg-white border border-gray-200 shadow-xs space-y-2">
+              <div className="flex items-center gap-2 text-blue-600 font-bold text-sm">
                 <FileCheck className="w-4 h-4" />
                 Signature Framing
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-gray-500 leading-relaxed">
                 Wide 2:1 and 7:2 bounding boxes to crop scanned signatures cleanly without unnecessary paper margins.
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-2">
-              <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+            <div className="p-5 rounded-2xl bg-white border border-gray-200 shadow-xs space-y-2">
+              <div className="flex items-center gap-2 text-emerald-600 font-bold text-sm">
                 <ShieldCheck className="w-4 h-4" />
                 Lossless Precision
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-gray-500 leading-relaxed">
                 Source coordinate mapping crops at native original resolution to prevent blurriness and pixelation.
               </p>
             </div>
@@ -289,16 +289,16 @@ export const CropToolPage: React.FC = () => {
       )}
 
       {/* Guidelines Section */}
-      <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-4">
-        <div className="flex items-center gap-3 text-slate-200">
-          <HelpCircle className="w-5 h-5 text-purple-400" />
+      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-sm space-y-4">
+        <div className="flex items-center gap-3 text-gray-900">
+          <HelpCircle className="w-5 h-5 text-orange-600" />
           <h3 className="font-bold text-base">Application Photo & Signature Cropping Rules</h3>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-400 leading-relaxed">
-          <div className="space-y-2 p-3.5 rounded-xl bg-slate-900/40 border border-slate-800/60">
-            <span className="font-semibold text-slate-200 block flex items-center gap-1.5">
-              <Info className="w-4 h-4 text-purple-400" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-600 leading-relaxed">
+          <div className="space-y-2 p-4 rounded-xl bg-gray-50 border border-gray-200">
+            <span className="font-bold text-gray-900 block flex items-center gap-1.5">
+              <Info className="w-4 h-4 text-orange-600" />
               Passport & Visa Photo Composition
             </span>
             <p>
@@ -306,9 +306,9 @@ export const CropToolPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="space-y-2 p-3.5 rounded-xl bg-slate-900/40 border border-slate-800/60">
-            <span className="font-semibold text-slate-200 block flex items-center gap-1.5">
-              <Info className="w-4 h-4 text-purple-400" />
+          <div className="space-y-2 p-4 rounded-xl bg-gray-50 border border-gray-200">
+            <span className="font-bold text-gray-900 block flex items-center gap-1.5">
+              <Info className="w-4 h-4 text-orange-600" />
               Signature Scan Tight Cropping
             </span>
             <p>
@@ -317,10 +317,10 @@ export const CropToolPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="pt-2 flex items-center justify-between text-xs text-slate-500 border-t border-slate-800/60">
+        <div className="pt-2 flex items-center justify-between text-xs text-gray-500 border-t border-gray-100">
           <span>HTML5 Canvas pixel sub-rectangle extraction</span>
-          <div className="inline-flex items-center gap-1.5 text-emerald-400 font-medium">
-            <ShieldCheck className="w-4 h-4" />
+          <div className="inline-flex items-center gap-1.5 text-emerald-700 font-semibold">
+            <ShieldCheck className="w-4 h-4 text-emerald-600" />
             100% In-Memory Processing
           </div>
         </div>

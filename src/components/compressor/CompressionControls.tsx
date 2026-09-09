@@ -59,28 +59,28 @@ export const CompressionControls: React.FC<CompressionControlsProps> = ({
   };
 
   return (
-    <div className="glass-panel rounded-3xl p-6 sm:p-8 border border-slate-800 space-y-6">
+    <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-sm space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-5">
         <div>
-          <h3 className="text-lg font-bold text-white flex items-center gap-2">
-            <Sliders className="w-5 h-5 text-blue-400" />
+          <h3 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+            <Sliders className="w-5 h-5 text-[#e5322d]" />
             Compression Settings
           </h3>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-gray-500 mt-0.5">
             Choose your desired target file size or manual quality level
           </p>
         </div>
 
         {/* Mode Selector Tabs */}
-        <div className="inline-flex p-1 rounded-xl bg-slate-900 border border-slate-800 self-start sm:self-auto">
+        <div className="inline-flex p-1 rounded-xl bg-gray-100 border border-gray-200 self-start sm:self-auto">
           <button
             type="button"
             onClick={() => setMode('target')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all ${
               mode === 'target'
-                ? 'bg-blue-600 text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-[#e5322d] text-white shadow-xs'
+                : 'text-gray-600 hover:text-gray-900'
             }`}
           >
             <Target className="w-3.5 h-3.5" />
@@ -89,10 +89,10 @@ export const CompressionControls: React.FC<CompressionControlsProps> = ({
           <button
             type="button"
             onClick={() => setMode('quality')}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+            className={`px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all ${
               mode === 'quality'
-                ? 'bg-blue-600 text-white shadow-md'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-[#e5322d] text-white shadow-xs'
+                : 'text-gray-600 hover:text-gray-900'
             }`}
           >
             <Sliders className="w-3.5 h-3.5" />
@@ -106,8 +106,8 @@ export const CompressionControls: React.FC<CompressionControlsProps> = ({
           <div className="space-y-4">
             {/* Quick Presets */}
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-                <Zap className="w-3.5 h-3.5 text-amber-400" />
+              <label className="text-xs font-bold text-gray-700 flex items-center gap-1.5">
+                <Zap className="w-3.5 h-3.5 text-amber-500" />
                 <span>Common Form Presets</span>
               </label>
               <div className="flex flex-wrap gap-2">
@@ -118,10 +118,10 @@ export const CompressionControls: React.FC<CompressionControlsProps> = ({
                       key={kb}
                       type="button"
                       onClick={() => handlePresetClick(kb)}
-                      className={`px-3.5 py-1.5 rounded-xl text-xs font-medium border transition-all ${
+                      className={`px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all ${
                         isSelected
-                          ? 'bg-blue-600/20 border-blue-500 text-blue-300 font-semibold'
-                          : 'bg-slate-900/80 border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white'
+                          ? 'bg-red-50 border-red-300 text-[#e5322d]'
+                          : 'bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100 hover:border-gray-300'
                       }`}
                     >
                       {kb} KB
@@ -133,7 +133,7 @@ export const CompressionControls: React.FC<CompressionControlsProps> = ({
 
             {/* Custom Input */}
             <div className="space-y-2">
-              <label htmlFor="targetSizeInput" className="text-xs font-semibold text-slate-300">
+              <label htmlFor="targetSizeInput" className="text-xs font-bold text-gray-700">
                 Custom Target Size
               </label>
               <div className="flex items-center gap-2 max-w-sm">
@@ -145,36 +145,36 @@ export const CompressionControls: React.FC<CompressionControlsProps> = ({
                   step="1"
                   value={customValue}
                   onChange={(e) => setCustomValue(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                  className="w-full px-4 py-2.5 rounded-xl bg-white border border-gray-300 text-gray-900 text-sm font-mono focus:outline-none focus:border-[#e5322d] focus:ring-2 focus:ring-red-100"
                   placeholder="e.g. 100"
                   required
                 />
                 <select
                   value={unit}
                   onChange={(e) => setUnit(e.target.value as 'KB' | 'MB')}
-                  className="px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                  className="px-3.5 py-2.5 rounded-xl bg-gray-50 border border-gray-300 text-gray-800 text-sm font-bold focus:outline-none focus:border-[#e5322d]"
                 >
                   <option value="KB">KB</option>
                   <option value="MB">MB</option>
                 </select>
               </div>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-gray-500">
                 Targeting smaller than original size (Original: {(originalSizeBytes / 1024).toFixed(1)} KB).
               </p>
             </div>
 
             {/* Dimension scaling checkbox */}
             <div className="pt-2">
-              <label className="flex items-start gap-2.5 cursor-pointer text-xs text-slate-300 select-none">
+              <label className="flex items-start gap-2.5 cursor-pointer text-xs text-gray-700 select-none">
                 <input
                   type="checkbox"
                   checked={allowDimensionReduction}
                   onChange={(e) => setAllowDimensionReduction(e.target.checked)}
-                  className="mt-0.5 rounded border-slate-700 bg-slate-900 text-blue-600 focus:ring-blue-500"
+                  className="mt-0.5 rounded border-gray-300 text-[#e5322d] focus:ring-red-500"
                 />
                 <span>
                   Automatically scale pixel dimensions if image cannot reach target size at minimum quality.
-                  <span className="block text-[11px] text-slate-400">
+                  <span className="block text-[11px] text-gray-500 font-normal">
                     (Recommended for high-resolution photos being compressed to strict limits like 20 KB or 50 KB).
                   </span>
                 </span>
@@ -185,10 +185,10 @@ export const CompressionControls: React.FC<CompressionControlsProps> = ({
           /* Manual Quality Slider */
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <label htmlFor="qualitySlider" className="text-xs font-semibold text-slate-300">
+              <label htmlFor="qualitySlider" className="text-xs font-bold text-gray-700">
                 Image Quality Level
               </label>
-              <span className="text-sm font-bold font-mono text-blue-400">
+              <span className="text-sm font-extrabold font-mono text-[#e5322d]">
                 {qualityPercent}%
               </span>
             </div>
@@ -200,10 +200,10 @@ export const CompressionControls: React.FC<CompressionControlsProps> = ({
               max="100"
               value={qualityPercent}
               onChange={(e) => setQualityPercent(parseInt(e.target.value, 10))}
-              className="w-full accent-blue-500 cursor-pointer"
+              className="w-full accent-[#e5322d] cursor-pointer"
             />
 
-            <div className="flex justify-between text-[10px] text-slate-400">
+            <div className="flex justify-between text-[10px] text-gray-500 font-medium">
               <span>Smallest Size (Low quality)</span>
               <span>Balanced</span>
               <span>Best Quality (Large size)</span>
@@ -212,11 +212,11 @@ export const CompressionControls: React.FC<CompressionControlsProps> = ({
         )}
 
         {/* Output Format Selection */}
-        <div className="space-y-2 pt-2 border-t border-slate-800">
-          <label className="text-xs font-semibold text-slate-300">
+        <div className="space-y-2 pt-3 border-t border-gray-100">
+          <label className="text-xs font-bold text-gray-700">
             Export Format
           </label>
-          <div className="flex gap-4 text-xs text-slate-300">
+          <div className="flex flex-wrap gap-4 text-xs text-gray-700 font-medium">
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="radio"
@@ -224,7 +224,7 @@ export const CompressionControls: React.FC<CompressionControlsProps> = ({
                 value="image/jpeg"
                 checked={format === 'image/jpeg'}
                 onChange={() => setFormat('image/jpeg')}
-                className="text-blue-600 bg-slate-900 border-slate-700 focus:ring-blue-500"
+                className="text-[#e5322d] border-gray-300 focus:ring-red-500"
               />
               <span>JPG / JPEG (Standard for all applications)</span>
             </label>
@@ -235,31 +235,31 @@ export const CompressionControls: React.FC<CompressionControlsProps> = ({
                 value="image/webp"
                 checked={format === 'image/webp'}
                 onChange={() => setFormat('image/webp')}
-                className="text-blue-600 bg-slate-900 border-slate-700 focus:ring-blue-500"
+                className="text-[#e5322d] border-gray-300 focus:ring-red-500"
               />
               <span>WebP (Modern high-efficiency)</span>
             </label>
           </div>
         </div>
 
-        {/* Action Button */}
-        <div className="pt-3">
+        {/* Action Button: Giant Red iLovePDF Button */}
+        <div className="pt-2">
           <button
             type="submit"
             disabled={isProcessing}
-            className={`w-full sm:w-auto px-8 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 transition-all ${
+            className={`w-full sm:w-auto px-10 py-4 rounded-2xl bg-[#e5322d] hover:bg-[#cb1b16] text-white font-extrabold text-base shadow-xl shadow-red-500/20 flex items-center justify-center gap-2.5 transition-all ${
               isProcessing ? 'opacity-70 cursor-not-allowed' : 'hover:-translate-y-0.5'
             }`}
           >
             {isProcessing ? (
               <>
-                <Loader2 className="w-4 h-4 animate-spin" />
+                <Loader2 className="w-5 h-5 animate-spin" />
                 <span>Compressing image in browser...</span>
               </>
             ) : (
               <>
-                <span>Compress Image</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>Compress IMAGE</span>
+                <ArrowRight className="w-5 h-5" />
               </>
             )}
           </button>
