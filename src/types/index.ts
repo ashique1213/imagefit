@@ -9,6 +9,8 @@ export interface ToolInfo {
   path: string;
   badge?: string;
   popular?: boolean;
+  colorTheme?: 'red' | 'blue' | 'orange' | 'green' | 'violet' | 'cyan' | 'rose' | 'fuchsia' | 'amber';
+  group?: 'optimize' | 'edit' | 'security';
 }
 
 export interface ImageMetadata {

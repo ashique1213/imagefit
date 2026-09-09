@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   ShieldCheck, 
@@ -8,16 +8,18 @@ import {
   HelpCircle, 
   ChevronDown, 
   ChevronUp, 
-  Wand2,
   ArrowRight,
-  CheckCircle2
+  Search,
+  CheckCircle2,
+  FileCheck,
 } from 'lucide-react';
 import { TOOLS } from '../constants/tools';
 import { ToolCard } from '../components/common/ToolCard';
-import { Badge } from '../components/common/Badge';
 
 export const Home: React.FC = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   const faqs = [
     {
@@ -49,83 +51,120 @@ export const Home: React.FC = () => {
     { id: 'indian-passport-seva', name: 'Passport Seva', dimensions: '413 × 531 px', size: 'Max 100 KB', desc: 'High resolution 300-DPI specification for passports.' },
   ];
 
-  return (
-    <div className="space-y-20 pb-16">
-      {/* Hero Section */}
-      <section className="relative pt-12 lg:pt-20 overflow-hidden">
-        {/* Glow Effects */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gradient-to-tr from-blue-600/20 to-purple-600/20 blur-[120px] rounded-full pointer-events-none" />
+  const filteredTools = useMemo(() => {
+    return TOOLS.filter((t) => {
+      // Category filter
+      if (selectedCategory === 'popular' && !t.popular) return false;
+      if (selectedCategory === 'optimize' && t.group !== 'optimize') return false;
+      if (selectedCategory === 'edit' && t.group !== 'edit') return false;
+      if (selectedCategory === 'security' && t.group !== 'security') return false;
 
-        <div className="max-w-4xl mx-auto text-center space-y-6 relative z-10 px-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-semibold backdrop-blur-md">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+      // Text search
+      if (!searchQuery.trim()) return true;
+      const q = searchQuery.toLowerCase();
+      return (
+        t.title.toLowerCase().includes(q) ||
+        t.shortDescription.toLowerCase().includes(q) ||
+        t.longDescription.toLowerCase().includes(q) ||
+        (t.badge && t.badge.toLowerCase().includes(q))
+      );
+    });
+  }, [searchQuery, selectedCategory]);
+
+  return (
+    <div className="space-y-16 sm:space-y-24 pb-16">
+      {/* Hero Section */}
+      <section className="relative pt-6 sm:pt-12 text-center">
+        <div className="max-w-4xl mx-auto space-y-6 px-4">
+          {/* Privacy Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 text-xs font-bold shadow-xs">
+            <ShieldCheck className="w-4 h-4 text-emerald-600" />
             <span>100% In-Browser & Local File Privacy</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
-            Prepare Your Images for <br />
-            <span className="text-gradient">Any Application</span>
+          {/* iLovePDF Iconic Main Headline */}
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-gray-900 leading-[1.15]">
+            Every tool you need to <br className="hidden sm:inline" />
+            work with images <span className="text-[#e5322d]">in one place</span>
           </h1>
 
-          <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Compress, resize, convert, crop, and edit photos and signatures — directly inside your browser. No server uploads, no wait times, zero quality compromise.
+          {/* Subtitle */}
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Every tool you need to use images, right at your fingertips. All are 100% FREE and easy to use! Compress, resize, crop, convert, edit signatures, and prepare photos for any application.
           </p>
 
-          {/* Quick Action Pills */}
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-3">
+          {/* Search & Category Filter Bar */}
+          <div className="pt-2 max-w-xl mx-auto space-y-4">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search tools (e.g. compress, resize, crop, signature, convert)..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-white border border-gray-200 text-sm font-medium text-gray-900 placeholder:text-gray-400 shadow-sm focus:outline-none focus:border-[#e5322d] focus:ring-2 focus:ring-red-100 transition-all"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-gray-400 hover:text-gray-600 px-2 py-1 bg-gray-100 rounded-lg"
+                >
+                  Clear
+                </button>
+              )}
+            </div>
+
+            {/* Category Pills */}
+            <div className="flex flex-wrap items-center justify-center gap-1.5 text-xs font-semibold">
+              {[
+                { id: 'all', label: 'All Tools' },
+                { id: 'popular', label: 'Popular' },
+                { id: 'optimize', label: 'Optimize & Convert' },
+                { id: 'edit', label: 'Edit & Resize' },
+                { id: 'security', label: 'Forms & Privacy' },
+              ].map((cat) => (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => setSelectedCategory(cat.id)}
+                  className={`px-3 py-1.5 rounded-xl transition-colors ${
+                    selectedCategory === cat.id
+                      ? 'bg-[#e5322d] text-white shadow-xs'
+                      : 'bg-white text-gray-600 hover:text-gray-900 hover:bg-gray-100 border border-gray-200/80'
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Quick Action Wizard Callout */}
+          <div className="pt-2 flex justify-center">
             <Link
               to="/pipeline"
-              className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold text-sm transition-all duration-200 shadow-xl shadow-blue-600/30 hover:shadow-blue-500/50 flex items-center gap-2.5 hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-red-50 text-[#e5322d] hover:bg-red-100 border border-red-200 text-xs font-bold transition-all hover:scale-[1.02]"
             >
-              <Wand2 className="w-4 h-4" />
-              <span>Application Wizard</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              to="/compress"
-              className="px-5 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-slate-200 font-semibold text-sm transition-all duration-200 flex items-center gap-2 hover:-translate-y-0.5"
-            >
-              <span>Compress Image</span>
-            </Link>
-            <Link
-              to="/resize"
-              className="px-5 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-slate-200 font-semibold text-sm transition-all duration-200 flex items-center gap-2 hover:-translate-y-0.5"
-            >
-              <span>Resize Image</span>
-            </Link>
-            <Link
-              to="/batch"
-              className="px-5 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-slate-200 font-semibold text-sm transition-all duration-200 flex items-center gap-2 hover:-translate-y-0.5"
-            >
-              <span>Batch & ZIP</span>
-            </Link>
-            <Link
-              to="/metadata"
-              className="px-5 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-slate-200 font-semibold text-sm transition-all duration-200 flex items-center gap-2 hover:-translate-y-0.5"
-            >
-              <span>EXIF Stripper</span>
-            </Link>
-            <Link
-              to="/signature"
-              className="px-5 py-3.5 rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700 text-slate-200 font-semibold text-sm transition-all duration-200 flex items-center gap-2 hover:-translate-y-0.5"
-            >
-              <span>Signature Tool</span>
+              <FileCheck className="w-4 h-4" />
+              <span>Need guided photo & signature prep? Try Application Wizard</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
-          {/* Key Specs Bar */}
-          <div className="pt-8 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400 border-t border-slate-800/60 mt-8">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-blue-400" />
-              <span>Exact KB / MB Compression</span>
+          {/* Key Specs Reassurance */}
+          <div className="pt-6 flex flex-wrap items-center justify-center gap-6 text-xs font-semibold text-gray-500 border-t border-gray-200/60 mt-6">
+            <div className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-4 h-4 text-[#e5322d]" />
+              <span>Exact Target KB Compression</span>
             </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-blue-400" />
+            <div className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-4 h-4 text-[#e5322d]" />
               <span>Passport & Signature Presets</span>
             </div>
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-blue-400" />
-              <span>Zero Backend Transmission</span>
+            <div className="flex items-center gap-1.5">
+              <CheckCircle2 className="w-4 h-4 text-[#e5322d]" />
+              <span>Zero Server Transmission</span>
             </div>
           </div>
         </div>
@@ -133,43 +172,67 @@ export const Home: React.FC = () => {
 
       {/* Tools Grid Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-10">
-          <Badge variant="purple" size="sm">
-            Complete Utility Suite
-          </Badge>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mt-3">
-            Select an Image Tool
-          </h2>
-          <p className="text-sm text-slate-400 mt-2">
-            Tailored tools designed specifically for application forms, exams, government portals, and college admissions.
-          </p>
+        <div className="flex items-center justify-between mb-8 pb-3 border-b border-gray-200">
+          <div>
+            <h2 className="text-xl sm:text-2xl font-black text-gray-900">
+              Image Tools
+            </h2>
+            <p className="text-xs text-gray-500 mt-0.5">
+              Showing {filteredTools.length} {filteredTools.length === 1 ? 'tool' : 'tools'}
+            </p>
+          </div>
+          {searchQuery && (
+            <button
+              onClick={() => {
+                setSearchQuery('');
+                setSelectedCategory('all');
+              }}
+              className="text-xs font-bold text-[#e5322d] hover:underline"
+            >
+              Reset filters
+            </button>
+          )}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {TOOLS.map((tool) => (
-            <ToolCard key={tool.id} tool={tool} />
-          ))}
-        </div>
+        {filteredTools.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredTools.map((tool) => (
+              <ToolCard key={tool.id} tool={tool} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16 bg-white rounded-3xl border border-gray-200 p-8">
+            <Search className="w-10 h-10 text-gray-300 mx-auto mb-3" />
+            <h3 className="text-base font-bold text-gray-800">No tools found matching "{searchQuery}"</h3>
+            <p className="text-xs text-gray-500 mt-1">Try searching for compress, resize, crop, or signature.</p>
+            <button
+              onClick={() => setSearchQuery('')}
+              className="mt-4 px-4 py-2 rounded-xl bg-[#e5322d] text-white text-xs font-bold shadow-xs hover:bg-[#cb1b16] transition-colors"
+            >
+              View All Tools
+            </button>
+          </div>
+        )}
       </section>
 
       {/* Quick Application Presets */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="glass-panel rounded-3xl p-8 border border-slate-800/80 relative overflow-hidden">
+        <div className="bg-white rounded-3xl p-8 sm:p-10 border border-gray-200 shadow-sm relative overflow-hidden">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-400 uppercase tracking-wider mb-2">
-                <Sliders className="w-4 h-4" /> Quick Presets
+              <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#e5322d] uppercase tracking-wider mb-2">
+                Quick Presets
               </div>
-              <h2 className="text-xl sm:text-2xl font-bold text-white">Popular Portal Preset Formats</h2>
-              <p className="text-xs text-slate-400 mt-1">
-                Common sample formats used across exam and job portals. (Custom dimensions & sizes are fully adjustable).
+              <h2 className="text-xl sm:text-2xl font-black text-gray-900">Popular Portal Preset Formats</h2>
+              <p className="text-xs text-gray-500 mt-1">
+                Common sample formats used across exam and job portals. Custom dimensions & sizes are always fully adjustable.
               </p>
             </div>
             <Link
               to="/pipeline"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600/20 text-blue-400 hover:bg-blue-600/30 border border-blue-500/30 text-xs font-semibold transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#e5322d] text-white hover:bg-[#cb1b16] text-xs font-bold transition-all shadow-sm hover:shadow"
             >
-              <span>Explore All Presets</span>
+              <span>Launch Application Wizard</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -179,20 +242,20 @@ export const Home: React.FC = () => {
               <Link
                 key={idx}
                 to={`/pipeline?preset=${item.id}`}
-                className="bg-slate-900/90 border border-slate-800 p-4 rounded-xl space-y-2 hover:border-blue-500/50 hover:bg-slate-850 transition-all block group"
+                className="bg-gray-50/70 border border-gray-200 p-5 rounded-2xl space-y-2 hover:border-red-300 hover:bg-white hover:shadow-md transition-all block group"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold text-white group-hover:text-blue-300 transition-colors">
+                  <span className="text-sm font-bold text-gray-900 group-hover:text-[#e5322d] transition-colors">
                     {item.name}
                   </span>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 font-mono">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-50 text-[#e5322d] border border-red-100">
                     {item.size}
                   </span>
                 </div>
-                <div className="text-xs font-mono text-slate-300">{item.dimensions}</div>
-                <p className="text-[11px] text-slate-400 leading-tight">{item.desc}</p>
-                <div className="text-[10px] text-blue-400 font-semibold pt-1 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                  <span>Open in Wizard</span>
+                <div className="text-xs font-mono font-semibold text-gray-700">{item.dimensions}</div>
+                <p className="text-[11px] text-gray-500 leading-tight">{item.desc}</p>
+                <div className="text-[10px] text-[#e5322d] font-bold pt-1 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                  <span>Apply Preset</span>
                   <ArrowRight className="w-3 h-3" />
                 </div>
               </Link>
@@ -204,39 +267,39 @@ export const Home: React.FC = () => {
       {/* Why Choose ImageFit */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white">Why Use ImageFit?</h2>
-          <p className="text-sm text-slate-400 mt-2">
+          <h2 className="text-2xl sm:text-3xl font-black text-gray-900">Why Use ImageFit?</h2>
+          <p className="text-sm text-gray-500 mt-2">
             Built for maximum privacy, speed, and precision when preparing confidential photos and signature documents.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="glass-panel p-6 rounded-2xl space-y-3">
-            <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center">
+          <div className="bg-white p-7 rounded-3xl border border-gray-200 shadow-sm space-y-3 hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center">
               <Lock className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-semibold text-white">100% Client-Side Privacy</h3>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <h3 className="text-base font-extrabold text-gray-900">100% Client-Side Privacy</h3>
+            <p className="text-xs text-gray-500 leading-relaxed">
               Your files never touch remote servers or databases. All computations execute locally in your web browser memory.
             </p>
           </div>
 
-          <div className="glass-panel p-6 rounded-2xl space-y-3">
-            <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center justify-center">
+          <div className="bg-white p-7 rounded-3xl border border-gray-200 shadow-sm space-y-3 hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 rounded-2xl bg-red-50 text-[#e5322d] border border-red-100 flex items-center justify-center">
               <Zap className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-semibold text-white">Instant Browser Processing</h3>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <h3 className="text-base font-extrabold text-gray-900">Instant Browser Processing</h3>
+            <p className="text-xs text-gray-500 leading-relaxed">
               No uploading delays or server queues. Process images of any size instantly using high-speed HTML5 Canvas APIs.
             </p>
           </div>
 
-          <div className="glass-panel p-6 rounded-2xl space-y-3">
-            <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center">
+          <div className="bg-white p-7 rounded-3xl border border-gray-200 shadow-sm space-y-3 hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center">
               <Sliders className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-semibold text-white">Target KB Precision</h3>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <h3 className="text-base font-extrabold text-gray-900">Target KB Precision</h3>
+            <p className="text-xs text-gray-500 leading-relaxed">
               Set target file size limits (e.g. 50 KB) and let our binary search algorithm calculate the exact compression needed.
             </p>
           </div>
@@ -245,39 +308,39 @@ export const Home: React.FC = () => {
 
       {/* How It Works */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="glass-panel rounded-3xl p-8 border border-slate-800/80">
+        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-gray-200 shadow-sm">
           <div className="text-center max-w-xl mx-auto mb-10">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white">How It Works</h2>
-            <p className="text-sm text-slate-400 mt-2">Three simple steps to prepare compliant images.</p>
+            <h2 className="text-2xl sm:text-3xl font-black text-gray-900">How It Works</h2>
+            <p className="text-sm text-gray-500 mt-2">Three simple steps to prepare compliant images.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-            <div className="text-center space-y-3">
-              <div className="w-12 h-12 rounded-full bg-blue-600 text-white font-bold text-lg flex items-center justify-center mx-auto shadow-lg shadow-blue-500/30">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-full bg-[#e5322d] text-white font-black text-lg flex items-center justify-center mx-auto shadow-md shadow-red-500/25">
                 1
               </div>
-              <h3 className="text-base font-semibold text-white">Upload Your File</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Drag and drop your photo or signature file (JPG, PNG, WebP) into the browser editor.
+              <h3 className="text-base font-bold text-gray-900">Select Your File</h3>
+              <p className="text-xs text-gray-500 leading-relaxed">
+                Click Select IMAGE or drag and drop your photo or signature (JPG, PNG, WebP) directly into the browser.
               </p>
             </div>
 
-            <div className="text-center space-y-3">
-              <div className="w-12 h-12 rounded-full bg-purple-600 text-white font-bold text-lg flex items-center justify-center mx-auto shadow-lg shadow-purple-500/30">
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-full bg-[#e5322d] text-white font-black text-lg flex items-center justify-center mx-auto shadow-md shadow-red-500/25">
                 2
               </div>
-              <h3 className="text-base font-semibold text-white">Configure Requirements</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <h3 className="text-base font-bold text-gray-900">Configure Requirements</h3>
+              <p className="text-xs text-gray-500 leading-relaxed">
                 Specify target KB size, pixel dimensions, background color, or signature ink options.
               </p>
             </div>
 
-            <div className="text-center space-y-3">
-              <div className="w-12 h-12 rounded-full bg-emerald-600 text-white font-bold text-lg flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/30">
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-full bg-[#e5322d] text-white font-black text-lg flex items-center justify-center mx-auto shadow-md shadow-red-500/25">
                 3
               </div>
-              <h3 className="text-base font-semibold text-white">Download Result</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <h3 className="text-base font-bold text-gray-900">Download Result</h3>
+              <p className="text-xs text-gray-500 leading-relaxed">
                 Compare original vs processed details and download your compliant image immediately.
               </p>
             </div>
@@ -288,33 +351,33 @@ export const Home: React.FC = () => {
       {/* FAQ Section */}
       <section className="max-w-4xl mx-auto px-4">
         <div className="text-center max-w-xl mx-auto mb-8">
-          <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-purple-400 uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#e5322d] uppercase tracking-wider mb-2">
             <HelpCircle className="w-4 h-4" /> Got Questions?
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white">Frequently Asked Questions</h2>
+          <h2 className="text-2xl sm:text-3xl font-black text-gray-900">Frequently Asked Questions</h2>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           {faqs.map((faq, index) => {
             const isOpen = openFaq === index;
             return (
               <div
                 key={index}
-                className="glass-panel rounded-2xl border border-slate-800 overflow-hidden transition-all duration-200"
+                className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-xs transition-all duration-200"
               >
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : index)}
-                  className="w-full p-5 text-left flex items-center justify-between gap-4 font-semibold text-slate-200 hover:text-white"
+                  className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-gray-800 hover:text-[#e5322d] transition-colors"
                 >
                   <span className="text-sm sm:text-base">{faq.q}</span>
                   {isOpen ? (
-                    <ChevronUp className="w-5 h-5 text-blue-400 flex-shrink-0" />
+                    <ChevronUp className="w-5 h-5 text-[#e5322d] flex-shrink-0" />
                   ) : (
-                    <ChevronDown className="w-5 h-5 text-slate-500 flex-shrink-0" />
+                    <ChevronDown className="w-5 h-5 text-gray-400 flex-shrink-0" />
                   )}
                 </button>
                 {isOpen && (
-                  <div className="px-5 pb-5 text-xs sm:text-sm text-slate-400 leading-relaxed border-t border-slate-800/60 pt-3">
+                  <div className="px-5 pb-5 text-xs sm:text-sm text-gray-600 leading-relaxed border-t border-gray-100 pt-3">
                     {faq.a}
                   </div>
                 )}
