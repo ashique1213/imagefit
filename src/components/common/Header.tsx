@@ -1,22 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShieldCheck, Image, Menu, X } from 'lucide-react';
+import { 
+  Heart, 
+  ShieldCheck, 
+  Menu, 
+  X, 
+} from 'lucide-react';
 import { Badge } from './Badge';
 
 export const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
-  const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Application Wizard', path: '/pipeline' },
-    { name: 'Batch', path: '/batch' },
-    { name: 'EXIF Privacy', path: '/metadata' },
-    { name: 'Compress', path: '/compress' },
-    { name: 'Resize', path: '/resize' },
-    { name: 'Convert', path: '/convert' },
-    { name: 'Signature Tool', path: '/signature' },
-    { name: 'Studio', path: '/editor' },
+  // Close menus on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  const quickLinks = [
+    { name: 'COMPRESS IMAGE', path: '/compress' },
+    { name: 'RESIZE IMAGE', path: '/resize' },
+    { name: 'CROP IMAGE', path: '/crop' },
+    { name: 'CONVERT TO JPG', path: '/convert' },
+    { name: 'CHANGE BACKGROUND', path: '/background' },
+    { name: 'SIGNATURE TOOL', path: '/signature' },
+    { name: 'WIZARD', path: '/pipeline' },
   ];
 
   const isActive = (path: string) => {
@@ -26,38 +34,30 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-800/80 glass-panel">
+    <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Brand Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-500 to-purple-500 p-0.5 shadow-lg shadow-blue-500/20 group-hover:shadow-blue-500/40 transition-all duration-300">
-              <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-                <Image className="w-5 h-5 text-blue-400 group-hover:scale-110 transition-transform duration-300" />
-              </div>
-            </div>
-            <div>
-              <span className="text-xl font-extrabold tracking-tight text-white flex items-center gap-1">
-                Image<span className="text-gradient">Fit</span>
-              </span>
-              <span className="hidden sm:block text-[10px] font-medium text-slate-400 -mt-1 tracking-wider uppercase">
-                Browser Image Utility
-              </span>
-            </div>
+          {/* Brand Logo: i ❤️ ImageFit */}
+          <Link to="/" className="flex items-center gap-1.5 group select-none">
+            <span className="text-2xl font-black text-gray-900 tracking-tighter">i</span>
+            <Heart className="w-6 h-6 fill-[#e5322d] text-[#e5322d] group-hover:scale-110 transition-transform duration-200" />
+            <span className="text-2xl font-black text-gray-900 tracking-tight">
+              Image<span className="text-[#e5322d]">Fit</span>
+            </span>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => {
+          <nav className="hidden lg:flex items-center gap-1">
+            {quickLinks.map((link) => {
               const active = isActive(link.path);
               return (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  className={`px-3 py-2 rounded-lg text-xs font-bold tracking-wider uppercase transition-colors ${
                     active
-                      ? 'bg-blue-500/15 text-blue-400 border border-blue-500/30'
-                      : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+                      ? 'bg-red-50 text-[#e5322d]'
+                      : 'text-gray-700 hover:text-[#e5322d] hover:bg-gray-50'
                   }`}
                 >
                   {link.name}
@@ -66,22 +66,22 @@ export const Header: React.FC = () => {
             })}
           </nav>
 
-          {/* Right Side: Privacy Indicator & CTA */}
-          <div className="hidden lg:flex items-center gap-3">
+          {/* Right Side: Privacy Indicator & Free Badge */}
+          <div className="hidden sm:flex items-center gap-2.5">
             <Badge variant="green" size="sm">
-              <ShieldCheck className="w-3.5 h-3.5" />
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
               <span>100% In-Browser Privacy</span>
             </Badge>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center gap-2">
+          <div className="flex lg:hidden items-center gap-2">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              className="p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-red-500/50"
               aria-label="Toggle Navigation Menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-6 h-6 text-[#e5322d]" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
@@ -89,28 +89,29 @@ export const Header: React.FC = () => {
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-slate-800 bg-slate-900/95 backdrop-blur-xl px-4 pt-2 pb-4 space-y-1">
-          {navLinks.map((link) => {
+        <div className="lg:hidden border-t border-gray-200 bg-white px-4 pt-3 pb-6 space-y-1 shadow-xl max-h-[85vh] overflow-y-auto">
+          {quickLinks.map((link) => {
             const active = isActive(link.path);
             return (
               <Link
                 key={link.path}
                 to={link.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block px-3 py-2.5 rounded-lg text-base font-medium transition-colors ${
+                className={`flex items-center px-3 py-2.5 rounded-xl text-sm font-bold tracking-wide transition-colors ${
                   active
-                    ? 'bg-blue-500/20 text-blue-400 font-semibold'
-                    : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                    ? 'bg-red-50 text-[#e5322d]'
+                    : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
                 }`}
               >
                 {link.name}
               </Link>
             );
           })}
-          <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
-            <span className="text-xs text-slate-400 flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              Files never leave your device
+
+          <div className="pt-4 mt-2 border-t border-gray-100 flex items-center justify-between px-3 text-xs text-emerald-700 font-medium">
+            <span className="flex items-center gap-1.5">
+              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              100% In-Browser Privacy
             </span>
           </div>
         </div>
