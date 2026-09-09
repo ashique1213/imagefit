@@ -120,11 +120,11 @@ export const SignatureToolPage: React.FC = () => {
         <Badge variant="purple" size="md">
           Signature Preparation Studio
         </Badge>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white flex items-center justify-center gap-3">
-          <PenTool className="w-8 h-8 text-purple-400" />
-          Scanned Signature Cleaner & Recolorer
+        <h1 className="text-3xl sm:text-4xl font-black text-gray-900 flex items-center justify-center gap-3">
+          <PenTool className="w-8 h-8 text-[#e5322d]" />
+          Signature Editor
         </h1>
-        <p className="text-sm text-slate-400 max-w-xl mx-auto">
+        <p className="text-sm text-gray-500 max-w-xl mx-auto">
           Turn rough smartphone photos of paper signatures into crisp, shadow-free, high-contrast digital signatures with official black or blue ink.
         </p>
       </div>
@@ -150,32 +150,32 @@ export const SignatureToolPage: React.FC = () => {
 
           {/* Value Highlights */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-            <div className="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-2">
-              <div className="flex items-center gap-2 text-purple-400 font-bold text-sm">
+            <div className="p-5 rounded-2xl bg-white border border-gray-200 shadow-xs space-y-2">
+              <div className="flex items-center gap-2 text-purple-600 font-bold text-sm">
                 <PenTool className="w-4 h-4" />
                 Paper Shadow Removal
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-gray-500 leading-relaxed">
                 Threshold engine removes gray shadows, yellow lighting casts, and phone camera glare from notebook paper.
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-2">
-              <div className="flex items-center gap-2 text-blue-400 font-bold text-sm">
+            <div className="p-5 rounded-2xl bg-white border border-gray-200 shadow-xs space-y-2">
+              <div className="flex items-center gap-2 text-blue-600 font-bold text-sm">
                 <FileCheck className="w-4 h-4" />
                 Official Exam Ink Standards
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-gray-500 leading-relaxed">
                 Recolor faint or faded handwriting directly into deep black or official ballpoint blue ink.
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-2">
-              <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+            <div className="p-5 rounded-2xl bg-white border border-gray-200 shadow-xs space-y-2">
+              <div className="flex items-center gap-2 text-emerald-600 font-bold text-sm">
                 <Layers className="w-4 h-4" />
                 Transparent or Solid
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-gray-500 leading-relaxed">
                 Export transparent PNGs to stamp directly onto PDFs, or solid pure white backgrounds for government portal uploads.
               </p>
             </div>
@@ -217,15 +217,15 @@ export const SignatureToolPage: React.FC = () => {
       )}
 
       {/* Signature Guidelines Section */}
-      <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-4">
-        <div className="flex items-center gap-3 text-slate-200">
-          <HelpCircle className="w-5 h-5 text-purple-400" />
+      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-sm space-y-4">
+        <div className="flex items-center gap-3 text-gray-900">
+          <HelpCircle className="w-5 h-5 text-purple-600" />
           <h3 className="font-bold text-base">Official Signature Guidelines for Applications</h3>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-400 leading-relaxed">
-          <div className="space-y-2 p-3.5 rounded-xl bg-slate-900/40 border border-slate-800/60">
-            <span className="font-semibold text-slate-200 block">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-600 leading-relaxed">
+          <div className="space-y-2 p-4 rounded-xl bg-gray-50 border border-gray-200">
+            <span className="font-bold text-gray-900 block">
               Gov / Exam Portals (SSC, UPSC, NTA, IBPS, Banking)
             </span>
             <p>
@@ -233,8 +233,8 @@ export const SignatureToolPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="space-y-2 p-3.5 rounded-xl bg-slate-900/40 border border-slate-800/60">
-            <span className="font-semibold text-slate-200 block">
+          <div className="space-y-2 p-4 rounded-xl bg-gray-50 border border-gray-200">
+            <span className="font-bold text-gray-900 block">
               Digital Contracts, PDF Signing & Offer Letters
             </span>
             <p>
@@ -243,10 +243,10 @@ export const SignatureToolPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="pt-2 flex items-center justify-between text-xs text-slate-500 border-t border-slate-800/60">
+        <div className="pt-2 flex items-center justify-between text-xs text-gray-500 border-t border-gray-100">
           <span>Actual pixel manipulation on HTML5 Canvas ImageData buffer</span>
-          <div className="inline-flex items-center gap-1.5 text-emerald-400 font-medium">
-            <ShieldCheck className="w-4 h-4" />
+          <div className="inline-flex items-center gap-1.5 text-emerald-700 font-semibold">
+            <ShieldCheck className="w-4 h-4 text-emerald-600" />
             100% In-Memory Processing
           </div>
         </div>

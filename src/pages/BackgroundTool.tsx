@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Palette, ShieldCheck, HelpCircle, AlertCircle, Info } from 'lucide-react';
-import { Badge } from '../components/common/Badge';
 import { ErrorBanner } from '../components/common/ErrorBanner';
 import { Dropzone } from '../components/upload/Dropzone';
 import { ImageDetailsCard } from '../components/upload/ImageDetailsCard';
@@ -182,15 +181,12 @@ export const BackgroundToolPage: React.FC = () => {
       />
 
       {/* Page Header */}
-      <div className="text-center space-y-3">
-        <Badge variant="blue" size="md">
-          Backdrop Color Studio
-        </Badge>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white flex items-center justify-center gap-3">
-          <Palette className="w-8 h-8 text-blue-400" />
-          Photo Background Color Tool
+      <div className="text-center space-y-2">
+        <h1 className="text-3xl sm:text-4xl font-black text-gray-900 flex items-center justify-center gap-3">
+          <Palette className="w-8 h-8 text-[#e5322d]" />
+          Change Background
         </h1>
-        <p className="text-sm text-slate-400 max-w-xl mx-auto">
+        <p className="text-sm text-gray-500 max-w-xl mx-auto">
           Replace photo backdrop colors with official Pure White, Passport Light Blue, or custom shades using client-side color-keying and soft edge feathering.
         </p>
       </div>
@@ -216,32 +212,32 @@ export const BackgroundToolPage: React.FC = () => {
 
           {/* Value Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-            <div className="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-2">
-              <div className="flex items-center gap-2 text-blue-400 font-bold text-sm">
+            <div className="p-5 rounded-2xl bg-white border border-gray-200 shadow-xs space-y-2">
+              <div className="flex items-center gap-2 text-blue-600 font-bold text-sm">
                 <ShieldCheck className="w-4 h-4" />
                 Passport & Visa Standard
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-gray-500 leading-relaxed">
                 One-click switch to Pure White (US Visa/SSC) or Light Blue (UK/EU Passport) backdrops.
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-2">
-              <div className="flex items-center gap-2 text-purple-400 font-bold text-sm">
+            <div className="p-5 rounded-2xl bg-white border border-gray-200 shadow-xs space-y-2">
+              <div className="flex items-center gap-2 text-fuchsia-600 font-bold text-sm">
                 <Palette className="w-4 h-4" />
                 Color-Key & Feathering
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-gray-500 leading-relaxed">
                 Automatic wall color detection with tolerance sliders to smoothly blend edges around hair and shoulders.
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-slate-900/40 border border-slate-800/80 space-y-2">
-              <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+            <div className="p-5 rounded-2xl bg-white border border-gray-200 shadow-xs space-y-2">
+              <div className="flex items-center gap-2 text-emerald-600 font-bold text-sm">
                 <ShieldCheck className="w-4 h-4" />
                 Zero Cloud Uploads
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs text-gray-500 leading-relaxed">
                 Processes directly in browser memory without sending your personal face photos to external AI servers.
               </p>
             </div>
@@ -284,16 +280,16 @@ export const BackgroundToolPage: React.FC = () => {
       )}
 
       {/* Guidelines Section */}
-      <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-4">
-        <div className="flex items-center gap-3 text-slate-200">
-          <HelpCircle className="w-5 h-5 text-blue-400" />
+      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-sm space-y-4">
+        <div className="flex items-center gap-3 text-gray-900">
+          <HelpCircle className="w-5 h-5 text-fuchsia-600" />
           <h3 className="font-bold text-base">Important Background Requirements by Portal</h3>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-400 leading-relaxed">
-          <div className="space-y-2 p-3.5 rounded-xl bg-slate-900/40 border border-slate-800/60">
-            <span className="font-semibold text-slate-200 block flex items-center gap-1.5">
-              <AlertCircle className="w-4 h-4 text-amber-400" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-600 leading-relaxed">
+          <div className="space-y-2 p-4 rounded-xl bg-gray-50 border border-gray-200">
+            <span className="font-bold text-gray-900 block flex items-center gap-1.5">
+              <AlertCircle className="w-4 h-4 text-amber-500" />
               US Visa & Indian Passport (White Background)
             </span>
             <p>
@@ -301,9 +297,9 @@ export const BackgroundToolPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="space-y-2 p-3.5 rounded-xl bg-slate-900/40 border border-slate-800/60">
-            <span className="font-semibold text-slate-200 block flex items-center gap-1.5">
-              <Info className="w-4 h-4 text-blue-400" />
+          <div className="space-y-2 p-4 rounded-xl bg-gray-50 border border-gray-200">
+            <span className="font-bold text-gray-900 block flex items-center gap-1.5">
+              <Info className="w-4 h-4 text-blue-600" />
               UK & European Passports (Light Blue / Gray)
             </span>
             <p>
@@ -312,10 +308,10 @@ export const BackgroundToolPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="pt-2 flex items-center justify-between text-xs text-slate-500 border-t border-slate-800/60">
+        <div className="pt-2 flex items-center justify-between text-xs text-gray-500 border-t border-gray-100">
           <span>Client-side color-keying & alpha blending on HTML5 Canvas</span>
-          <div className="inline-flex items-center gap-1.5 text-emerald-400 font-medium">
-            <ShieldCheck className="w-4 h-4" />
+          <div className="inline-flex items-center gap-1.5 text-emerald-700 font-semibold">
+            <ShieldCheck className="w-4 h-4 text-emerald-600" />
             100% In-Memory Processing
           </div>
         </div>

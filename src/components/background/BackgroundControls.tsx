@@ -4,7 +4,6 @@ import {
   Sliders,
   Check,
   Pipette,
-  ShieldAlert,
 } from 'lucide-react';
 import type {
   BackgroundProcessOptions,
@@ -31,24 +30,24 @@ export const BackgroundControls: React.FC<BackgroundControlsProps> = ({
   const isTargetTransparent = settings.targetColorPreset === 'transparent';
 
   return (
-    <div className="glass-panel p-6 sm:p-8 rounded-3xl border border-slate-800 space-y-6">
+    <div className="bg-white p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-sm space-y-6">
       {/* Mode Switcher */}
       <div className="space-y-3">
-        <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider block">
+        <label className="text-xs font-bold text-gray-700 uppercase tracking-wider block">
           Replacement Mode
         </label>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <button
             type="button"
             onClick={() => onChangeSettings({ ...settings, mode: 'color-key' })}
-            className={`p-3.5 rounded-2xl border text-xs font-semibold flex flex-col items-start gap-1 transition-all text-left ${
+            className={`p-4 rounded-2xl border text-xs font-semibold flex flex-col items-start gap-1 transition-all text-left cursor-pointer ${
               settings.mode === 'color-key'
-                ? 'bg-blue-600/20 border-blue-500/70 text-white shadow-lg shadow-blue-500/10 ring-1 ring-blue-500/40'
-                : 'bg-slate-900/60 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+                ? 'bg-red-50/70 border-[#e5322d] text-gray-900 shadow-xs ring-1 ring-red-400'
+                : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50'
             }`}
           >
-            <span className="font-bold text-sm">Replace Plain Backdrop</span>
-            <span className="text-[11px] text-slate-500 font-normal">
+            <span className="font-bold text-sm text-gray-900">Replace Plain Backdrop</span>
+            <span className="text-[11px] text-gray-500 font-normal">
               For studio/passport photos taken against a solid or plain wall
             </span>
           </button>
@@ -56,21 +55,21 @@ export const BackgroundControls: React.FC<BackgroundControlsProps> = ({
           <button
             type="button"
             onClick={() => onChangeSettings({ ...settings, mode: 'transparent-fill' })}
-            className={`p-3.5 rounded-2xl border text-xs font-semibold flex flex-col items-start gap-1 transition-all text-left relative ${
+            className={`p-4 rounded-2xl border text-xs font-semibold flex flex-col items-start gap-1 transition-all text-left relative cursor-pointer ${
               settings.mode === 'transparent-fill'
-                ? 'bg-blue-600/20 border-blue-500/70 text-white shadow-lg shadow-blue-500/10 ring-1 ring-blue-500/40'
-                : 'bg-slate-900/60 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+                ? 'bg-red-50/70 border-[#e5322d] text-gray-900 shadow-xs ring-1 ring-red-400'
+                : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50'
             }`}
           >
             <div className="flex items-center justify-between w-full">
-              <span className="font-bold text-sm">Fill Transparent Cutout</span>
+              <span className="font-bold text-sm text-gray-900">Fill Transparent Cutout</span>
               {hasTransparency && (
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold">
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold">
                   Detected
                 </span>
               )}
             </div>
-            <span className="text-[11px] text-slate-500 font-normal">
+            <span className="text-[11px] text-gray-500 font-normal">
               Fills background on existing transparent PNGs or logo graphics
             </span>
           </button>
@@ -81,12 +80,12 @@ export const BackgroundControls: React.FC<BackgroundControlsProps> = ({
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Palette className="w-4 h-4 text-blue-400" />
-            <label className="text-xs font-semibold text-slate-200 uppercase tracking-wider">
+            <Palette className="w-4 h-4 text-[#e5322d]" />
+            <label className="text-xs font-bold text-gray-700 uppercase tracking-wider">
               Choose Target Background Color
             </label>
           </div>
-          <span className="text-[11px] text-slate-400">
+          <span className="text-[11px] text-gray-500 font-medium">
             {BACKGROUND_PRESETS.find((p) => p.id === settings.targetColorPreset)?.name}
           </span>
         </div>
@@ -104,26 +103,26 @@ export const BackgroundControls: React.FC<BackgroundControlsProps> = ({
                 key={preset.id}
                 type="button"
                 onClick={() => onChangeSettings({ ...settings, targetColorPreset: preset.id })}
-                className={`p-3 rounded-2xl border text-xs font-semibold flex items-center gap-2.5 transition-all text-left ${
+                className={`p-3 rounded-2xl border text-xs font-semibold flex items-center gap-2.5 transition-all text-left cursor-pointer ${
                   isSelected
-                    ? 'bg-blue-600/20 border-blue-500/70 text-white shadow-lg shadow-blue-500/10 ring-1 ring-blue-500/40'
-                    : 'bg-slate-900/60 border-slate-800 text-slate-300 hover:border-slate-700 hover:bg-slate-800/40'
+                    ? 'bg-red-50/70 border-[#e5322d] text-gray-900 shadow-xs ring-1 ring-red-400'
+                    : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50'
                 }`}
               >
                 {preset.id === 'transparent' ? (
-                  <span className="w-4 h-4 rounded-full border border-slate-600 checkerboard-pattern shrink-0 flex items-center justify-center">
-                    {isSelected && <Check className="w-2.5 h-2.5 text-blue-400 stroke-[3]" />}
+                  <span className="w-4 h-4 rounded-full border border-gray-300 checkerboard-pattern shrink-0 flex items-center justify-center">
+                    {isSelected && <Check className="w-2.5 h-2.5 text-[#e5322d] stroke-[3]" />}
                   </span>
                 ) : (
                   <span
-                    className="w-4 h-4 rounded-full border border-slate-600 shadow-sm shrink-0 flex items-center justify-center"
+                    className="w-4 h-4 rounded-full border border-gray-300 shadow-xs shrink-0 flex items-center justify-center"
                     style={{ backgroundColor: displayColor || '#FFFFFF' }}
                   >
                     {isSelected && (
                       <Check
                         className={`w-2.5 h-2.5 stroke-[3] ${
                           preset.id === 'white' || preset.id === 'light-blue' || preset.id === 'off-white'
-                            ? 'text-slate-900'
+                            ? 'text-gray-900'
                             : 'text-white'
                         }`}
                       />
@@ -131,9 +130,9 @@ export const BackgroundControls: React.FC<BackgroundControlsProps> = ({
                   </span>
                 )}
                 <div className="truncate">
-                  <span className="block truncate">{preset.name}</span>
+                  <span className="block truncate text-gray-900 font-bold">{preset.name}</span>
                   {preset.isPortalStandard && (
-                    <span className="text-[9px] text-blue-400 font-normal">Official Std</span>
+                    <span className="text-[9px] text-[#e5322d] font-semibold">Official Std</span>
                   )}
                 </div>
               </button>
@@ -143,8 +142,8 @@ export const BackgroundControls: React.FC<BackgroundControlsProps> = ({
 
         {/* Custom Color Picker */}
         {settings.targetColorPreset === 'custom' && (
-          <div className="flex items-center gap-3 p-3 rounded-2xl bg-slate-900/60 border border-slate-800/80">
-            <label className="text-xs text-slate-400">Custom Target Color:</label>
+          <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-gray-50 border border-gray-200">
+            <label className="text-xs font-bold text-gray-700">Custom Target Color:</label>
             <input
               type="color"
               value={settings.customTargetColor || '#FDE047'}
@@ -159,7 +158,7 @@ export const BackgroundControls: React.FC<BackgroundControlsProps> = ({
               onChange={(e) =>
                 onChangeSettings({ ...settings, customTargetColor: e.target.value })
               }
-              className="w-24 bg-slate-800 border border-slate-700 rounded-lg px-2 py-1 text-xs text-white font-mono uppercase focus:outline-none"
+              className="w-28 bg-white border border-gray-300 rounded-xl px-2.5 py-1.5 text-xs text-gray-900 font-mono uppercase focus:outline-none focus:border-[#e5322d] font-bold"
               placeholder="#FDE047"
             />
           </div>
@@ -168,20 +167,20 @@ export const BackgroundControls: React.FC<BackgroundControlsProps> = ({
 
       {/* Color-Key Mode Details (Source Backdrop, Tolerance, Feathering) */}
       {settings.mode === 'color-key' && (
-        <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800/80 space-y-4">
+        <div className="p-5 rounded-2xl bg-gray-50 border border-gray-200 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2">
-              <Pipette className="w-4 h-4 text-blue-400" />
-              <label className="text-xs font-semibold text-slate-200 uppercase tracking-wider">
+              <Pipette className="w-4 h-4 text-[#e5322d]" />
+              <label className="text-xs font-bold text-gray-800 uppercase tracking-wider">
                 Source Backdrop Color to Replace
               </label>
             </div>
             <div className="flex items-center gap-2">
               <span
-                className="w-4 h-4 rounded-full border border-slate-600 shadow-sm"
+                className="w-4 h-4 rounded-full border border-gray-300 shadow-xs"
                 style={{ backgroundColor: settings.sourceColor || detectedSourceColor }}
               />
-              <span className="text-xs font-mono font-bold text-slate-300">
+              <span className="text-xs font-mono font-bold text-gray-800">
                 {settings.sourceColor || detectedSourceColor}
               </span>
               <input
@@ -197,13 +196,13 @@ export const BackgroundControls: React.FC<BackgroundControlsProps> = ({
           </div>
 
           {/* Tolerance Slider */}
-          <div className="space-y-2 pt-2 border-t border-slate-800/60">
-            <div className="flex items-center justify-between text-xs text-slate-300">
-              <span className="flex items-center gap-1.5 font-medium">
-                <Sliders className="w-3.5 h-3.5 text-blue-400" />
+          <div className="space-y-2 pt-2 border-t border-gray-200">
+            <div className="flex items-center justify-between text-xs text-gray-700">
+              <span className="flex items-center gap-1.5 font-bold">
+                <Sliders className="w-3.5 h-3.5 text-[#e5322d]" />
                 Color Match Tolerance
               </span>
-              <span className="font-mono font-bold text-blue-400">{settings.tolerance}%</span>
+              <span className="font-mono font-bold text-[#e5322d]">{settings.tolerance}%</span>
             </div>
             <input
               type="range"
@@ -214,19 +213,19 @@ export const BackgroundControls: React.FC<BackgroundControlsProps> = ({
               onChange={(e) =>
                 onChangeSettings({ ...settings, tolerance: parseInt(e.target.value, 10) })
               }
-              className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
+              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#e5322d]"
             />
-            <div className="flex items-center justify-between text-[11px] text-slate-500">
+            <div className="flex items-center justify-between text-[11px] text-gray-500">
               <span>Strict Match (5%)</span>
               <span>Broader Range / Casts (70%)</span>
             </div>
           </div>
 
           {/* Feathering Slider */}
-          <div className="space-y-2 pt-2 border-t border-slate-800/60">
-            <div className="flex items-center justify-between text-xs text-slate-300">
-              <span>Edge Softness & Feathering</span>
-              <span className="font-mono text-blue-400">{settings.feather} px</span>
+          <div className="space-y-2 pt-2 border-t border-gray-200">
+            <div className="flex items-center justify-between text-xs text-gray-700">
+              <span className="font-bold">Edge Softness & Feathering</span>
+              <span className="font-mono font-bold text-[#e5322d]">{settings.feather} px</span>
             </div>
             <input
               type="range"
@@ -237,9 +236,9 @@ export const BackgroundControls: React.FC<BackgroundControlsProps> = ({
               onChange={(e) =>
                 onChangeSettings({ ...settings, feather: parseInt(e.target.value, 10) })
               }
-              className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
+              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#e5322d]"
             />
-            <div className="flex items-center justify-between text-[11px] text-slate-500">
+            <div className="flex items-center justify-between text-[11px] text-gray-500">
               <span>Sharp Cutout (0 px)</span>
               <span>Smooth Natural Hair Blending (30 px)</span>
             </div>
@@ -248,8 +247,8 @@ export const BackgroundControls: React.FC<BackgroundControlsProps> = ({
       )}
 
       {/* Export Format Selector */}
-      <div className="p-4 rounded-2xl bg-slate-900/60 border border-slate-800/80 space-y-3">
-        <label className="text-xs font-semibold text-slate-200 uppercase tracking-wider block">
+      <div className="p-4 rounded-2xl bg-gray-50 border border-gray-200 space-y-3">
+        <label className="text-xs font-bold text-gray-700 uppercase tracking-wider block">
           Export File Format
         </label>
         <div className="grid grid-cols-3 gap-2">
@@ -265,10 +264,10 @@ export const BackgroundControls: React.FC<BackgroundControlsProps> = ({
                 type="button"
                 disabled={disabled}
                 onClick={() => onChangeSettings({ ...settings, format: fmt })}
-                className={`py-2 px-3 rounded-xl border text-xs font-semibold transition-all disabled:opacity-30 disabled:cursor-not-allowed ${
+                className={`py-2.5 px-3 rounded-xl border text-xs font-bold transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed ${
                   isSelected
-                    ? 'bg-blue-600/20 border-blue-500 text-white'
-                    : 'bg-slate-800/60 border-slate-700 text-slate-400 hover:text-slate-200'
+                    ? 'bg-red-50 border-[#e5322d] text-[#e5322d] shadow-xs'
+                    : 'bg-white border-gray-200 text-gray-700 hover:border-gray-300'
                 }`}
               >
                 {label}
@@ -278,26 +277,13 @@ export const BackgroundControls: React.FC<BackgroundControlsProps> = ({
         </div>
       </div>
 
-      {/* Honest Technology & Privacy Disclaimer */}
-      <div className="p-4 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-start gap-3">
-        <ShieldAlert className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
-        <div className="text-xs space-y-1">
-          <p className="font-semibold text-blue-200">
-            Privacy & Architecture Guarantee
-          </p>
-          <p className="text-slate-300 leading-relaxed">
-            ImageFit performs mathematical color-key replacement and edge-tolerance smoothing locally in browser memory for photos taken against uniform walls. We deliberately avoid sending your biometric face photos to third-party cloud AI servers.
-          </p>
-        </div>
-      </div>
-
       {/* Process Button */}
       <div className="pt-2">
         <button
           type="button"
           onClick={onProcess}
           disabled={isProcessing}
-          className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 active:scale-[0.99] font-bold text-white shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          className="w-full py-4 px-8 rounded-2xl bg-[#e5322d] hover:bg-[#cb1b16] active:scale-[0.99] font-black text-white shadow-xl shadow-red-500/25 flex items-center justify-center gap-2.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer text-base"
         >
           {isProcessing ? (
             <>

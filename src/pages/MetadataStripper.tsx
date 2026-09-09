@@ -147,14 +147,14 @@ export const MetadataStripperPage: React.FC = () => {
 
       {/* Page Header */}
       <div className="text-center space-y-3">
-        <Badge variant="purple" size="md">
+        <Badge variant="red" size="md">
           Privacy & Anti-Tracking Studio
         </Badge>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white flex items-center justify-center gap-3">
-          <ShieldAlert className="w-8 h-8 text-emerald-400" />
-          EXIF & Metadata Stripper
+        <h1 className="text-3xl sm:text-4xl font-black text-gray-900 flex items-center justify-center gap-3">
+          <ShieldAlert className="w-8 h-8 text-[#e5322d]" />
+          EXIF & Privacy Stripper
         </h1>
-        <p className="text-sm text-slate-400 max-w-2xl mx-auto">
+        <p className="text-sm text-gray-500 max-w-2xl mx-auto">
           Detect and wipe hidden GPS coordinates, camera serial numbers, and capture timestamps
           before submitting photos to government, visa, or job portals. 100% in-browser privacy.
         </p>
@@ -181,43 +181,43 @@ export const MetadataStripperPage: React.FC = () => {
             <button
               type="button"
               onClick={handleLoadDemo}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-slate-800/80 hover:bg-slate-750 text-emerald-400 hover:text-emerald-300 border border-slate-700 text-xs font-semibold shadow-lg shadow-emerald-500/5 transition-all hover:scale-[1.02] cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white hover:bg-gray-50 text-rose-600 border border-gray-200 text-xs font-bold shadow-xs transition-all hover:scale-[1.02] cursor-pointer"
             >
-              <ImageIcon className="w-4 h-4 text-emerald-400" />
+              <ImageIcon className="w-4 h-4 text-rose-600" />
               <span>Or click here to test with a specimen photo</span>
             </button>
           </div>
 
           {/* Privacy Feature Highlights */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pt-4">
-            <div className="glass-panel p-6 rounded-3xl border border-slate-800 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400">
+            <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center text-red-600">
                 <MapPin className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-white">GPS Coordinate Wipe</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <h3 className="text-base font-bold text-gray-900">GPS Coordinate Wipe</h3>
+              <p className="text-xs text-gray-500 leading-relaxed">
                 Modern smartphone photos tag your exact home or work GPS latitude and longitude.
                 We detect and wipe location data cleanly.
               </p>
             </div>
 
-            <div className="glass-panel p-6 rounded-3xl border border-slate-800 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+            <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
                 <Camera className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-white">Device Anonymization</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <h3 className="text-base font-bold text-gray-900">Device Anonymization</h3>
+              <p className="text-xs text-gray-500 leading-relaxed">
                 Removes phone model, lens serials, aperture values, and software signatures to
                 prevent device tracking and portal rejection.
               </p>
             </div>
 
-            <div className="glass-panel p-6 rounded-3xl border border-slate-800 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+            <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
                 <ShieldCheck className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-white">Zero Server Uploads</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <h3 className="text-base font-bold text-gray-900">Zero Server Uploads</h3>
+              <p className="text-xs text-gray-500 leading-relaxed">
                 All metadata scanning and sanitization occurs directly in your browser session via
                 HTML5 Canvas. Your confidential ID photos never leave your device.
               </p>

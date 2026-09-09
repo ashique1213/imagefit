@@ -212,13 +212,13 @@ export const BatchProcessorPage: React.FC = () => {
         <Badge variant="blue" size="md">
           Bulk Multi-File Processing Studio
         </Badge>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white flex items-center justify-center gap-3">
-          <Layers className="w-8 h-8 text-blue-400" />
-          Batch Processor & ZIP Bundle
+        <h1 className="text-3xl sm:text-4xl font-black text-gray-900 flex items-center justify-center gap-3">
+          <Layers className="w-8 h-8 text-[#e5322d]" />
+          Batch Processor & ZIP
         </h1>
-        <p className="text-sm text-slate-400 max-w-2xl mx-auto">
+        <p className="text-sm text-gray-500 max-w-2xl mx-auto">
           Compress to target KB, convert formats, or resize dozens of photos simultaneously in
-          browser memory. Package all processed outputs into a single client-side ZIP archive.
+          your browser. Export all processed files together as a single ZIP archive.
         </p>
       </div>
 
@@ -230,13 +230,12 @@ export const BatchProcessorPage: React.FC = () => {
         />
       )}
 
-      {/* Main Content Area */}
+      {/* Empty State / Initial Dropzone */}
       {items.length === 0 ? (
         <div className="space-y-6">
-          {/* Empty state Dropzone */}
           <BatchDropzone onFilesSelected={addFilesToQueue} />
 
-          {/* Quick Demo Button */}
+          {/* Preset Helper / Samples */}
           <div className="flex justify-center">
             <button
               type="button"
@@ -244,43 +243,43 @@ export const BatchProcessorPage: React.FC = () => {
                 const samples = await createSampleBatchFiles();
                 addFilesToQueue(samples);
               }}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-slate-800/80 hover:bg-slate-750 text-blue-400 hover:text-blue-300 border border-slate-700 text-xs font-semibold shadow-lg shadow-blue-500/5 transition-all hover:scale-[1.02] cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-white hover:bg-gray-50 text-sky-600 border border-gray-200 text-xs font-bold shadow-xs transition-all hover:scale-[1.02] cursor-pointer"
             >
-              <ImageIcon className="w-4 h-4 text-blue-400" />
+              <ImageIcon className="w-4 h-4 text-sky-600" />
               <span>Or click here to test with 3 sample applicant images</span>
             </button>
           </div>
 
           {/* Feature Highlights Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            <div className="glass-panel p-6 rounded-3xl border border-slate-800 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+            <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center text-sky-600">
                 <Zap className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-white">Batch Target KB Limits</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <h3 className="text-base font-bold text-gray-900">Batch Target KB Limits</h3>
+              <p className="text-xs text-gray-500 leading-relaxed">
                 Applies binary-search compression across all selected images so every single file
                 adheres strictly to job or examination portal size caps (e.g., 50KB or 100KB).
               </p>
             </div>
 
-            <div className="glass-panel p-6 rounded-3xl border border-slate-800 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+            <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600">
                 <Archive className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-white">Direct Client-Side ZIP</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <h3 className="text-base font-bold text-gray-900">Direct Client-Side ZIP</h3>
+              <p className="text-xs text-gray-500 leading-relaxed">
                 No need to click download 50 times. All finished files are assembled into a clean
                 ZIP archive directly inside browser memory without contacting any server.
               </p>
             </div>
 
-            <div className="glass-panel p-6 rounded-3xl border border-slate-800 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+            <div className="bg-white p-6 rounded-3xl border border-gray-200 shadow-sm space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
                 <ShieldCheck className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-white">Zero Server Transmission</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <h3 className="text-base font-bold text-gray-900">Zero Server Transmission</h3>
+              <p className="text-xs text-gray-500 leading-relaxed">
                 All photos, signatures, and certificates stay 100% on your local machine. Ideal for
                 confidential ID photos, government cards, and private documents.
               </p>
