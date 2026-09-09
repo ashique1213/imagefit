@@ -12,7 +12,7 @@ export function App() {
     <BrowserRouter>
       <SkipToContent />
       <AriaLiveRegion />
-      <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 selection:bg-blue-500 selection:text-white font-sans antialiased">
+      <div className="min-h-screen flex flex-col bg-[#f4f5f8] text-gray-900 selection:bg-[#e5322d] selection:text-white font-sans antialiased">
         <Header />
         <OfflineIndicator />
         <main
