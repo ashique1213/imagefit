@@ -31,12 +31,6 @@ export const Footer: React.FC = () => {
             <Link to="/metadata" className="hover:text-[#e5322d] transition-colors">Metadata</Link>
             <Link to="/pipeline" className="hover:text-[#e5322d] transition-colors">Wizard</Link>
           </div>
-
-          <div className="flex items-center gap-1 text-gray-400">
-            <span>Made with</span>
-            <Heart className="w-3.5 h-3.5 fill-[#e5322d] text-[#e5322d]" />
-            <span>in browser</span>
-          </div>
         </div>
 
         {/* Agency Attribution */}
