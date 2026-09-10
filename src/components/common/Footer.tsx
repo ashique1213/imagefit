@@ -51,7 +51,7 @@ export const Footer: React.FC = () => {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 font-semibold text-gray-800 hover:text-[#e5322d] transition-all duration-150 px-3 py-1.5 rounded-lg border border-gray-200/80 bg-gray-50/60 hover:bg-red-50 hover:border-red-200 text-[11px] sm:text-xs text-center max-w-full break-words shadow-xs"
           >
-            <span>[FREELANCE AGENCY: QUESTACK SOLUTIONS]</span>
+            <span>FREELANCE AGENCY: QUESTACK SOLUTIONS</span>
             <ExternalLink className="w-3.5 h-3.5 text-gray-400 shrink-0" />
           </a>
         </div>
